@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Bali – Romantic Beach Escape",
+    "location": "Bali, Indonesia",
+    "days": 5,
+    "nights": 4,
+    "price": 45000,
+    "category": "beaches",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80&auto=format&fit=crop",
+    "description": "Perfect honeymoon package with private dinners, spa, and beach resort stay."
+  },
+  {
+    "id": 2,
+    "title": "Goa – Family Beach Holiday",
+    "location": "Goa, India",
+    "days": 3,
+    "nights": 2,
+    "price": 18000,
+    "category": "family",
+    "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200&q=80&auto=format&fit=crop",
+    "description": "Family-friendly resort, watersports, and easy transfers."
+  },
+  {
+    "id": 3,
+    "title": "Tirupati Darshan",
+    "location": "Tirupati, India",
+    "days": 2,
+    "nights": 1,
+    "price": 8000,
+    "category": "temples",
+    "image": "https://images.unsplash.com/photo-1599577180564?w=1200&q=80&auto=format&fit=crop",
+    "description": "Quick and convenient darshan package with coach transfers."
+  },
+  {
+    "id": 4,
+    "title": "Leh-Ladakh Adventure Ride",
+    "location": "Ladakh, India",
+    "days": 7,
+    "nights": 6,
+    "price": 42000,
+    "category": "adventure",
+    "image": "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=1200&q=80&auto=format&fit=crop",
+    "description": "Bike rides across high passes with camping and guides."
+  },
+  {
+    "id": 5,
+    "title": "Swiss Alps Luxury",
+    "location": "Switzerland",
+    "days": 7,
+    "nights": 6,
+    "price": 125000,
+    "category": "international",
+    "image": "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1200&q=80&auto=format&fit=crop",
+    "description": "Luxury alpine stay, scenic trains and guided tours."
+  },
+  {
+    "id": 6,
+    "title": "Kerala Backwaters – Family Cruise",
+    "location": "Alleppey, Kerala",
+    "days": 4,
+    "nights": 3,
+    "price": 24000,
+    "category": "family",
+    "image": "https://images.unsplash.com/photo-1519821172143-3a75a0c9f833?w=1200&q=80&auto=format&fit=crop",
+    "description": "Houseboat stay with delicious local cuisine."
+  }
+]
