@@ -1,29 +1,38 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function TripCard({ trip }) {
+function TripCard({ trip }) {
   const navigate = useNavigate();
 
-  if (!trip) return null;
-
   return (
-    <div
-      onClick={() => navigate(`/trip/${trip.id}`)}
-      className="bg-white rounded-xl shadow hover:shadow-2xl transform hover:-translate-y-1 transition overflow-hidden cursor-pointer"
-    >
-      <div className="h-44 w-full">
-        <img src={trip.image} alt={trip.title} className="w-full h-full object-cover" />
-      </div>
+    <div className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition duration-300">
+
+      <img
+        src={trip.image}
+        alt={trip.title}
+        className="w-full h-48 object-cover"
+      />
 
       <div className="p-4">
-        <div className="flex justify-between items-start">
-          <h3 className="text-lg font-semibold text-blue-700">{trip.title}</h3>
-          <div className="text-green-600 font-bold">₹{trip.price.toLocaleString()}</div>
-        </div>
+        <h3 className="text-xl font-bold text-blue-700">{trip.title}</h3>
+        <p className="text-gray-600">{trip.location}</p>
 
-        <p className="text-gray-600 mt-1">{trip.location}</p>
-        <p className="text-sm text-gray-500 mt-2">{trip.days} days • {trip.nights ?? Math.max(1, trip.days - 1)} nights</p>
+        <p className="text-sm text-gray-500 mt-1">
+          {trip.days} Days • {trip.nights} Nights
+        </p>
+
+        <p className="mt-3 text-lg font-extrabold text-green-600">₹{trip.price}</p>
+
+        <button
+          onClick={() => navigate(`/trip/${trip.id}`)}
+          className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+        >
+          View Details
+        </button>
       </div>
+
     </div>
   );
 }
+
+export default TripCard;
