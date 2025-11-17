@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HomeBanner from "../components/Home/HomeBanner";
 import TripList from "../components/Home/TripList";
+import Ourservices from "../components/Home/Ourservices";
 
 export default function Home() {
   return (
@@ -12,9 +13,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <HomeBanner />
           <TripList />
+          <Ourservices />
         </div>
       </main>
-      <Footer />
     </>
   );
 }
