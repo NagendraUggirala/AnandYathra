@@ -8,10 +8,13 @@ export default function CategoryPlaces() {
   const { categoryId } = useParams();
   const places = placesData[categoryId] || [];
 
-  const formattedTitle = categoryId.replace("-", " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const formattedTitle = categoryId
+    .replace("-", " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 
   return (
-    <div className="max-w-7xl mx-auto px-5 py-16">
+    <div className="max-w-7xl mx-auto px-5 pt-28 pb-16">
+      {/* ↑ Added pt-28 (padding-top) and pb-16 (bottom spacing) */}
 
       {/* Back Button */}
       <div className="mb-6">

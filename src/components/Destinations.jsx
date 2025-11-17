@@ -1,11 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import categories from "../data/categories.json"; // <-- Your categories JSON
+import categories from "../data/categories.json";
 
 export default function Destinations() {
   return (
-    <section className="max-w-7xl mx-auto px-5 mt-24 mb-16">
+    // Add padding-top instead of margin-top to avoid overlap with fixed navbar
+    <section className="max-w-7xl mx-auto px-5 pt-28 mb-16">
 
       {/* Heading */}
       <div className="text-center mb-10">
@@ -19,7 +20,6 @@ export default function Destinations() {
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-
         {categories.map((place) => (
           <Link to={`/category/${place.id}`} key={place.id}>
             <motion.div
@@ -43,13 +43,14 @@ export default function Destinations() {
 
               {/* Text */}
               <div className="p-5">
-                <h3 className="text-xl font-bold text-yellow-600">{place.title}</h3>
+                <h3 className="text-xl font-bold text-yellow-600">
+                  {place.title}
+                </h3>
                 <p className="text-gray-600 mt-2 text-sm">{place.desc}</p>
               </div>
             </motion.div>
           </Link>
         ))}
-
       </div>
     </section>
   );

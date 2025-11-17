@@ -8,7 +8,9 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-lightyellow via-white to-lightorange flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-lightyellow via-white to-lightorange 
+                    flex items-center justify-center p-6 relative overflow-hidden pt-32">
+      {/* ↑ pt-32 added so content sits below fixed navbar */}
 
       {/* ☁ Cloud Left */}
       <motion.img
@@ -51,7 +53,6 @@ export default function SignUp() {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-
           {/* Name */}
           <div>
             <label className="block text-saffron font-medium mb-1">

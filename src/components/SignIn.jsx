@@ -8,8 +8,9 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-lightyellow via-white to-lightorange flex items-center justify-center p-6 relative overflow-hidden">
-
+    <div className="min-h-screen bg-gradient-to-br from-lightyellow via-white to-lightorange 
+                    flex items-center justify-center p-6 relative overflow-hidden pt-32">
+      {/* ↑ pt-32 added so Sign-In page appears below the fixed navbar */}
 
       {/* ☁ Clouds */}
       <motion.img
@@ -35,7 +36,6 @@ export default function SignIn() {
         transition={{ duration: 0.6 }}
         className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8 border border-silver/50 relative z-10"
       >
-
         {/* Title + rotating globe */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -102,7 +102,6 @@ export default function SignIn() {
             Sign Up
           </a>
         </p>
-
       </motion.div>
     </div>
   );
