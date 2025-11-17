@@ -1,115 +1,112 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { FiHome, FiMapPin, FiCompass, FiUser, FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/20 border-b border-white/30 shadow-xl">
-      
-      
-      <div className="max-w-7xl mx-auto px-5 py-3 flex justify-between items-center">
+    <header className="fixed w-full top-0 z-50 bg-white text-navy shadow-lg backdrop-blur-sm border-b border-gold/20">
+      <div className="max-w-7xl mx-auto px-6 py-4 lg:py-3 flex items-center justify-between">
+        
+        {/* Logo + Profile Section */}
+        <div className="flex items-center gap-3">
+          <img
+            src="/assets/founder.jpg"
+            alt="Profile"
+            className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full shadow-lg object-cover object-top"
+          />
+<br />
+          <img
+            src="/assets/Anandlogo.png"
+            alt="Logo"
+            className="w-12 h-13 object-contain"
+          />
 
-        <Link to="/" className="flex items-center gap-3">
-  <img
-    src="/assets/Anandlogo.png"
-    alt="Anand Yatra Logo"
-    className="w-10 h-10 object-contain"
-  />
-  <h1 className="text-2xl font-bold text-gray-800">
-    Anand Yatra
-  </h1>
-</Link>
+          <div>
+            <h1 className="text-xl font-bold text-orange-600">ANAND YATRA</h1>
+            <p className="text-sm text-gray-600 italic">
+              "Dharmo Rakshati Rakshitah"
+            </p>
+          </div>
+        </div>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden md:flex items-center gap-10 text-gray-800 font-semibold">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8 text-lg font-medium text-[#1b2b47]">
+          <Link to="/" className="hover:text-orange-600 transition">Home</Link>
+          <Link to="/destinations" className="hover:text-orange-600 transition">Destinations</Link>
+          <Link to="/trips" className="hover:text-orange-600 transition">Trips</Link>
+        </nav>
 
-          {/* Nav Links with Animated Underline */}
-          <Link className="relative group flex items-center gap-2" to="/">
-            <FiHome className="text-skyblue" />
-            Home
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-skyblue group-hover:w-full transition-all"></span>
-          </Link>
-
-          <Link className="relative group flex items-center gap-2" to="/destinations">
-            <FiMapPin className="text-saffron" />
-            Destinations
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-saffron group-hover:w-full transition-all"></span>
-          </Link>
-
-          <Link className="relative group flex items-center gap-2" to="/trips">
-            <FiCompass className="text-gold" />
-            Trips
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gold group-hover:w-full transition-all"></span>
-          </Link>
-
-          {/* SIGN IN */}
-          <Link
-            to="/signin"
-            className="px-5 py-1.5 rounded-full bg-gradient-to-r from-skyblue to-blue-600 
-                       text-white shadow-md hover:shadow-lg hover:scale-[1.05] transition-all"
-          >
-            Sign In
-          </Link>
-
-          {/* SIGN UP */}
+        {/* Desktop Buttons */}
+        <div className="hidden md:flex items-center gap-3">
           <Link
             to="/signup"
-            className="px-5 py-1.5 rounded-full bg-gradient-to-r from-gold to-saffron
-                       text-gray-900 font-bold shadow-md hover:shadow-lg hover:scale-[1.05] transition-all"
+            className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium shadow hover:bg-green-600 transition"
           >
             Sign Up
           </Link>
-        </nav>
+          <Link
+            to="/signin"
+            className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium shadow hover:bg-green-600 transition"
+          >
+            Sign In
+          </Link>
+        </div>
 
-        {/* MOBILE TOGGLE BUTTON */}
-        <button className="md:hidden text-3xl text-gray-800" onClick={() => setOpen(!open)}>
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden text-3xl text-[#1b2b47]"
+          onClick={() => setOpen(!open)}
+        >
           {open ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* Mobile Dropdown Menu */}
       {open && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="md:hidden bg-white/40 backdrop-blur-xl border-t border-white/50 p-6 space-y-6 shadow-xl"
-        >
-          {/* Animated Nav */}
-          <Link className="flex items-center gap-3 text-lg" to="/" onClick={() => setOpen(false)}>
-            <FiHome className="text-skyblue" /> Home
-          </Link>
-
-          <Link className="flex items-center gap-3 text-lg" to="/destinations" onClick={() => setOpen(false)}>
-            <FiMapPin className="text-saffron" /> Destinations
-          </Link>
-
-          <Link className="flex items-center gap-3 text-lg" to="/trips" onClick={() => setOpen(false)}>
-            <FiCompass className="text-gold" /> Trips
-          </Link>
-
-          {/* Buttons */}
+        <div className="md:hidden bg-white shadow-md px-6 pb-4 space-y-4">
           <Link
-            to="/signin"
             onClick={() => setOpen(false)}
-            className="block text-center px-5 py-2 rounded-full 
-                       bg-gradient-to-r from-skyblue to-blue-600 text-white shadow-md"
+            to="/"
+            className="block text-lg font-medium text-[#1b2b47] hover:text-orange-600 transition"
           >
-            Sign In
+            Home
           </Link>
 
           <Link
-            to="/signup"
             onClick={() => setOpen(false)}
-            className="block text-center px-5 py-2 rounded-full 
-                       bg-gradient-to-r from-gold to-saffron text-white shadow-md"
+            to="/destinations"
+            className="block text-lg font-medium text-[#1b2b47] hover:text-orange-600 transition"
           >
-            Sign Up
+            Destinations
           </Link>
-        </motion.div>
+
+          <Link
+            onClick={() => setOpen(false)}
+            to="/trips"
+            className="block text-lg font-medium text-[#1b2b47] hover:text-orange-600 transition"
+          >
+            Trips
+          </Link>
+
+          <div className="flex flex-col gap-3 pt-3">
+            <Link
+              onClick={() => setOpen(false)}
+              to="/signup"
+              className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium shadow hover:bg-green-600 transition text-center"
+            >
+              Sign Up
+            </Link>
+            <Link
+              onClick={() => setOpen(false)}
+              to="/signin"
+              className="bg-green-500 text-white px-5 py-2 rounded-lg font-medium shadow hover:bg-green-600 transition text-center"
+            >
+              Sign In
+            </Link>
+          </div>
+        </div>
       )}
     </header>
   );

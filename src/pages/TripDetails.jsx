@@ -12,16 +12,14 @@ export default function TripDetails() {
   if (!trip) {
     return (
       <>
-        <Header />
         <div className="max-w-3xl mx-auto p-8 text-center">Trip not found</div>
-        <Footer />
       </>
     );
   }
 
   return (
     <>
-      <Header />
+      
       <div className="max-w-4xl mx-auto px-4 py-8">
         <img src={trip.image} alt={trip.title} className="w-full h-72 object-cover rounded-xl shadow" />
         <h1 className="text-3xl font-bold text-blue-800 mt-6">{trip.title}</h1>
@@ -33,7 +31,7 @@ export default function TripDetails() {
           <button onClick={() => navigate(`/book/${trip.id}`)} className="ml-auto bg-blue-600 text-white px-6 py-2 rounded-lg">Book Now</button>
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 }
