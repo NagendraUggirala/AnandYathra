@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/20 border-b border-white/30 shadow-xl">
       
-      {/* MAIN NAV */}
+      
       <div className="max-w-7xl mx-auto px-5 py-3 flex justify-between items-center">
 
         {/* LOGO + ROTATING GLOBE */}

@@ -8,7 +8,7 @@ import TripDetails from "./pages/TripDetails";
 import BookingForm from "./pages/BookingForm";
 import PaymentPage from "./pages/PaymentPage";
 import SuccessPage from "./pages/SuccessPage";
-
+import Trips from "./pages/Trips";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/Signup";
 
@@ -23,23 +23,21 @@ function App() {
         
         {/* All pages inside Layout */}
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/destinations" element={<Destinations />} />
-          
-          {/* Categories Flow */}
-          <Route path="/category/:categoryId" element={<CategoryPlaces />} />
-          <Route path="/category/:categoryId/:placeId" element={<PlaceDetails />} />
-          
-          {/* Trip Flow */}
-          <Route path="/trip/:id" element={<TripDetails />} />
-          <Route path="/book/:id" element={<BookingForm />} />
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/success" element={<SuccessPage />} />
-          
-          {/* Auth */}
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Route>
+  <Route path="/" element={<Home />} />
+  <Route path="/trips" element={<Trips />} />   {/* NEW */}
+  <Route path="/destinations" element={<Destinations />} />
+
+  <Route path="/category/:categoryId" element={<CategoryPlaces />} />
+  <Route path="/category/:categoryId/:placeId" element={<PlaceDetails />} />
+
+  <Route path="/trip/:id" element={<TripDetails />} />
+  <Route path="/book/:id" element={<BookingForm />} />
+  <Route path="/payment" element={<PaymentPage />} />
+  <Route path="/success" element={<SuccessPage />} />
+
+  <Route path="/signin" element={<SignIn />} />
+  <Route path="/signup" element={<SignUp />} />
+</Route>
 
       </Routes>
     </BrowserRouter>
