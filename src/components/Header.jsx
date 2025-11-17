@@ -9,22 +9,19 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/20 border-b border-white/30 shadow-xl">
       
-      {/* MAIN NAV */}
+      
       <div className="max-w-7xl mx-auto px-5 py-3 flex justify-between items-center">
 
-        {/* LOGO + ROTATING GLOBE */}
         <Link to="/" className="flex items-center gap-3">
-          <motion.img
-            src="/assets/globe.png"
-            alt="globe"
-            className="w-10 h-10 opacity-90"
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-          />
-          <h1 className="text-2xl font-extrabold bg-gradient-to-r from-skyblue to-saffron bg-clip-text text-transparent drop-shadow">
-            Anand Yatra
-          </h1>
-        </Link>
+  <img
+    src="/assets/Anandlogo.png"
+    alt="Anand Yatra Logo"
+    className="w-10 h-10 object-contain"
+  />
+  <h1 className="text-2xl font-bold text-gray-800">
+    Anand Yatra
+  </h1>
+</Link>
 
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-10 text-gray-800 font-semibold">

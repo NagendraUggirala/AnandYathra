@@ -1,0 +1,154 @@
+{
+  "goa-premium": {
+    "id": "goa-premium",
+    "title": "Goa Premium Luxury Escape",
+    "destination": "Goa",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "price": 24999,
+    "days": 4,
+    "nights": 3,
+    "highlights": [
+      "4-Star Luxury Resort",
+      "Private Airport Transfers",
+      "North & South Goa Sightseeing",
+      "Sunset at Calangute"
+    ],
+    "inclusions": [
+      "Breakfast Buffet",
+      "Private Cab for Tours",
+      "Stay in Luxury Resort"
+    ],
+    "exclusions": [
+      "Water Sports",
+      "Lunch & Dinner"
+    ],
+    "itinerary": [
+      "Day 1: Arrival + Calangute Beach",
+      "Day 2: North Goa Tour – Baga, Aguada",
+      "Day 3: South Goa Tour – Miramar, Basilica",
+      "Day 4: Checkout"
+    ],
+    "bestTime": "October - March"
+  },
+
+  "goa-budget": {
+    "id": "goa-budget",
+    "title": "Goa Budget Trip",
+    "destination": "Goa",
+    "image": "https://images.unsplash.com/photo-1516118037531-5be9c5c0c7b7",
+    "price": 12999,
+    "days": 3,
+    "nights": 2,
+    "highlights": [
+      "Affordable Hotels",
+      "North Goa Group Tour",
+      "Beachside Cafes"
+    ],
+    "inclusions": ["Breakfast", "Group Tour"],
+    "exclusions": ["Airport Pickup"],
+    "itinerary": [
+      "Day 1: Arrival",
+      "Day 2: North Goa Tour",
+      "Day 3: Checkout"
+    ],
+    "bestTime": "November - February"
+  },
+
+  "varkala-escape": {
+    "id": "varkala-escape",
+    "title": "Varkala Cliff Escape",
+    "destination": "Varkala",
+    "image": "https://images.unsplash.com/photo-1600677686887-90e299c732cd",
+    "price": 15999,
+    "days": 3,
+    "nights": 2,
+    "highlights": [
+      "Cliffside Resort",
+      "Black Beach",
+      "Sunset View Points"
+    ],
+    "inclusions": ["Breakfast", "Cliff Resort Stay"],
+    "exclusions": [],
+    "itinerary": [
+      "Day 1: Arrival + Cliff Walk",
+      "Day 2: Black Beach",
+      "Day 3: Checkout"
+    ],
+    "bestTime": "Nov - March"
+  },
+
+  "manali-adventure": {
+    "id": "manali-adventure",
+    "title": "Manali Adventure Expedition",
+    "destination": "Manali",
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    "price": 18999,
+    "days": 5,
+    "nights": 4,
+    "highlights": [
+      "Solang Valley Adventure",
+      "Atal Tunnel Visit",
+      "Snow Activities"
+    ],
+    "inclusions": [
+      "4-Night Stay",
+      "Breakfast + Dinner",
+      "Private Cab"
+    ],
+    "exclusions": ["Adventure Activity Charges"],
+    "itinerary": [
+      "Day 1: Arrival + Mall Road",
+      "Day 2: Solang Valley",
+      "Day 3: Atal Tunnel",
+      "Day 4: Kullu",
+      "Day 5: Checkout"
+    ],
+    "bestTime": "March - June"
+  },
+
+  "haridwar-spiritual": {
+    "id": "haridwar-spiritual",
+    "title": "Haridwar & Rishikesh Spiritual Circuit",
+    "destination": "Haridwar",
+    "image": "https://images.unsplash.com/photo-1585499226549-89d08f85aa71",
+    "price": 9999,
+    "days": 3,
+    "nights": 2,
+    "highlights": [
+      "Ganga Aarti",
+      "Lakshman Jhula",
+      "Spiritual Temples"
+    ],
+    "inclusions": ["Accommodation", "Aarti Ceremony"],
+    "exclusions": ["Meals"],
+    "itinerary": [
+      "Day 1: Ganga Aarti",
+      "Day 2: Rishikesh Tour",
+      "Day 3: Checkout"
+    ],
+    "bestTime": "October - April"
+  },
+
+  "amritsar-golden": {
+    "id": "amritsar-golden",
+    "title": "Golden Temple Darshan Trip",
+    "destination": "Amritsar",
+    "image": "https://images.unsplash.com/photo-1545249390-3ec3e252a94b",
+    "price": 12999,
+    "days": 3,
+    "nights": 2,
+    "highlights": [
+      "Golden Temple",
+      "Wagah Border Ceremony",
+      "Heritage Walk"
+    ],
+    "inclusions": ["Hotel Stay", "Temple Visit"],
+    "exclusions": [],
+    "itinerary": [
+      "Day 1: Golden Temple",
+      "Day 2: Wagah Border",
+      "Day 3: Checkout"
+    ],
+    "bestTime": "October - February"
+  }
+}
