@@ -1,0 +1,38 @@
+[
+  {
+    "id": "beaches",
+    "title": "Beaches",
+    "img": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "desc": "Relaxing beaches with clear skies & soft sands."
+  },
+  {
+    "id": "mountains",
+    "title": "Mountains",
+    "img": "https://images.unsplash.com/photo-1508264165352-258a6ee1e3c6?auto=format&fit=crop&w=800&q=80",
+    "desc": "Scenic mountains for adventure & peaceful escapes."
+  },
+  {
+    "id": "family",
+    "title": "Family Trips",
+    "img": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+    "desc": "Perfect destinations for fun-filled family vacations."
+  },
+  {
+    "id": "spiritual",
+    "title": "Spiritual Trails",
+    "img": "https://images.unsplash.com/photo-1585499226549-89d08f85aa71?auto=format&fit=crop&w=800&q=80",
+    "desc": "Peaceful temples, ashrams & spiritual retreats."
+  },
+  {
+    "id": "adventure",
+    "title": "Adventure",
+    "img": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+    "desc": "Thrilling experiences for adrenaline seekers."
+  },
+  {
+    "id": "waterfalls",
+    "title": "Waterfalls",
+    "img": "https://images.unsplash.com/photo-1500622944204-b135684e99fd?auto=format&fit=crop&w=800&q=80",
+    "desc": "Discover majestic waterfalls across the country."
+  }
+]

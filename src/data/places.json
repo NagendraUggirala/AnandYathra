@@ -1,0 +1,182 @@
+{
+  "beaches": [
+    {
+      "id": "goa",
+      "name": "Goa",
+      "img": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+      "desc": "Golden beaches, vibrant nightlife and historic forts.",
+      "packages": ["goa-premium", "goa-budget", "goa-family"]
+    },
+    {
+      "id": "varkala",
+      "name": "Varkala Beach",
+      "img": "https://images.unsplash.com/photo-1600677686887-90e299c732cd",
+      "desc": "Cliff-side beach known for calm shores and sunsets.",
+      "packages": ["varkala-escape"]
+    },
+    {
+      "id": "gokarna",
+      "name": "Gokarna",
+      "img": "https://images.unsplash.com/photo-1518684079-08d3abbc9a17",
+      "desc": "Peaceful beaches, perfect for camping and trekking.",
+      "packages": ["gokarna-backpack"]
+    },
+    {
+      "id": "pondicherry",
+      "name": "Pondicherry Beach",
+      "img": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+      "desc": "French architecture meets serene beaches.",
+      "packages": ["pondy-weekend"]
+    },
+    {
+      "id": "andaman",
+      "name": "Andaman Islands",
+      "img": "https://images.unsplash.com/photo-1537956384450-7e56c01cc0f2",
+      "desc": "White sand beaches, coral reefs and crystal waters.",
+      "packages": ["andaman-premium", "andaman-honeymoon"]
+    },
+    {
+      "id": "alibaug",
+      "name": "Alibaug",
+      "img": "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
+      "desc": "Maharashtra’s coastal escape with clean beaches.",
+      "packages": ["alibaug-weekend"]
+    },
+    {
+      "id": "digha",
+      "name": "Digha Beach",
+      "img": "https://images.unsplash.com/photo-1474511014058-0b41ebf9dbd5",
+      "desc": "Calm waves and wide sandy shores.",
+      "packages": ["digha-relax"]
+    },
+    {
+      "id": "kovalam",
+      "name": "Kovalam Beach",
+      "img": "https://images.unsplash.com/photo-1519677100203-a0e668c92439",
+      "desc": "Kerala’s famous lighthouse beach.",
+      "packages": ["kovalam-escape"]
+    }
+  ],
+
+  "mountains": [
+    {
+      "id": "manali",
+      "name": "Manali",
+      "img": "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+      "desc": "Snow valleys, adventure sports and the Himalayas.",
+      "packages": ["manali-adventure"]
+    },
+    {
+      "id": "shimla",
+      "name": "Shimla",
+      "img": "https://images.unsplash.com/photo-1551632811-561732d1e306",
+      "desc": "Colonial town with pine forests and cool climate.",
+      "packages": ["shimla-classic"]
+    },
+    {
+      "id": "darjeeling",
+      "name": "Darjeeling",
+      "img": "https://images.unsplash.com/photo-1587486913049-3998a0238baf",
+      "desc": "Tea gardens and the mighty Kanchenjunga.",
+      "packages": ["darjeeling-tea"]
+    },
+    {
+      "id": "gangtok",
+      "name": "Gangtok",
+      "img": "https://images.unsplash.com/photo-1545642084-3f5d67ce2772",
+      "desc": "Sikkim’s mountain capital with monasteries.",
+      "packages": ["gangtok-mountain"]
+    },
+    {
+      "id": "leh-ladakh",
+      "name": "Leh Ladakh",
+      "img": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+      "desc": "Frozen lakes, high passes and Tibetan culture.",
+      "packages": ["ladakh-expedition"]
+    },
+    {
+      "id": "nainital",
+      "name": "Nainital",
+      "img": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
+      "desc": "Lake city surrounded by lush mountains.",
+      "packages": ["nainital-family"]
+    },
+    {
+      "id": "coorg",
+      "name": "Coorg",
+      "img": "https://images.unsplash.com/photo-1505482142310-2309e2c0f1b0",
+      "desc": "Coffee plantations & misty hills.",
+      "packages": ["coorg-retreat"]
+    },
+    {
+      "id": "munnar",
+      "name": "Munnar",
+      "img": "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+      "desc": "Tea gardens and cool mountain air.",
+      "packages": ["munnar-hills"]
+    }
+  ],
+
+  "spiritual": [
+    {
+      "id": "haridwar",
+      "name": "Haridwar",
+      "img": "https://images.unsplash.com/photo-1585499226549-89d08f85aa71",
+      "desc": "Holy city on the banks of the Ganges.",
+      "packages": ["haridwar-spiritual"]
+    },
+    {
+      "id": "varanasi",
+      "name": "Varanasi",
+      "img": "https://images.unsplash.com/photo-1532370405320-1f4b6cbebf80",
+      "desc": "World’s oldest living city — temples & ghats.",
+      "packages": ["varanasi-heritage"]
+    },
+    {
+      "id": "rishikesh",
+      "name": "Rishikesh",
+      "img": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da",
+      "desc": "Yoga capital with river rafting & ashrams.",
+      "packages": ["rishikesh-meditation"]
+    },
+    {
+      "id": "tirupati",
+      "name": "Tirupati",
+      "img": "https://images.unsplash.com/photo-1550565075-25a5b51faad0",
+      "desc": "Home of Lord Venkateswara temple.",
+      "packages": ["tirupati-darshan"]
+    },
+    {
+      "id": "kedarnath",
+      "name": "Kedarnath",
+      "img": "https://images.unsplash.com/photo-1551882547-b23363f1b822",
+      "desc": "One of the Char Dham shrines.",
+      "packages": ["kedarnath-yatra"]
+    },
+    {
+      "id": "vaishnodevi",
+      "name": "Vaishno Devi",
+      "img": "https://images.unsplash.com/photo-1513091293890-c0be6ec9f9ac",
+      "desc": "Sacred cave temple in Jammu region.",
+      "packages": ["vaishnodevi-tour"]
+    },
+    {
+      "id": "shirdi",
+      "name": "Shirdi",
+      "img": "https://images.unsplash.com/photo-1524493021633-8b8c5c57f9d4",
+      "desc": "Land of Sai Baba & spiritual peace.",
+      "packages": ["shirdi-darshan"]
+    },
+    {
+      "id": "amritsar",
+      "name": "Amritsar",
+      "img": "https://images.unsplash.com/photo-1545249390-3ec3e252a94b",
+      "desc": "Golden Temple — peace, purity and devotion.",
+      "packages": ["amritsar-golden"]
+    }
+  ],
+
+  "family": [],
+  "adventure": [],
+  "waterfalls": []
+}
