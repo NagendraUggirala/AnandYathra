@@ -10,23 +10,21 @@ export default function AboutFounder() {
       {/* =======================
      1. ABOUT FOUNDER 
 ========================= */}
-<section className="max-w-7xl mx-auto px-6 py-20">
+<section className="max-w-7xl mx-auto px-5 pt-26 mb-16">
 
   {/* Title + Logo */}
   <div className="flex items-center gap-4 mb-12">
-    <img
+    {/* <img
       src="/assets/Anandlogo.png"
       alt="Anand Yatra Logo"
       className="w-16 h-16 object-contain drop-shadow-lg"
-    />
+    /> */}
 
     <h1
-      className="text-3xl sm:text-4xl md:text-5xl font-extrabold 
-      bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text 
-      text-transparent drop-shadow"
-    >
-      About Our Founder
-    </h1>
+  className="text-3xl sm:text-4xl md:text-5xl font-extrabold  bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent drop-shadow  text-center w-full">
+  About Our Founder
+</h1>
+
   </div>
 
   <div className="grid md:grid-cols-2 gap-12">
@@ -36,7 +34,7 @@ export default function AboutFounder() {
       <img
         src="/assets/founder.jpg"
         alt="Founder"
-        className="rounded-3xl shadow-2xl w-full max-w-md object-cover border-4 border-yellow-400"
+        className="rounded-3xl shadow-2xl w-full max-w-md object-cover border-4"
       />
     </div>
 
