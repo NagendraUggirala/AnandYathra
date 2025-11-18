@@ -6,7 +6,7 @@ import categories from "../data/categories.json";
 export default function Destinations() {
   return (
     // Add padding-top instead of margin-top to avoid overlap with fixed navbar
-    <section className="max-w-7xl mx-auto px-5 pt-18 mb-16">
+    <section className="max-w-7xl mx-auto px-5 pt-32 mb-16">
 
       {/* Heading */}
       <div className="text-center mb-10">

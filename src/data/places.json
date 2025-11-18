@@ -176,9 +176,33 @@
     }
   ],
 
-  "family": [],
-  "adventure": [],
-  "waterfalls": []
+  "family": [
+    {
+      "id": "ooty",
+      "name": "Ooty",
+      "img": "https://www.oyorooms.com/blog/wp-content/uploads/2017/11/Feature-Image-min-8-1080x720.jpg",
+      "desc": "Family friendly hill station.",
+      "packages": ["ooty-family"]
+    }
+  ],
+  "adventure": [
+    {
+      "id": "manali",
+      "name": "Manali",
+      "img": "https://www.tourmyindia.com/states/himachal/images/manali/manali-himachal-tourism.jpg",
+      "desc": "Gateway to adventure sports in the Himalayas.",
+      "packages": ["manali-adventure"]
+    }
+  ],
+  "waterfalls": [
+    {
+      "id": "athirappilly",
+      "name": "Athirappilly",
+      "img": "https://www.keralatourism.org/images/destination/athirappilly-waterfalls-kerala.jpg",
+      "desc": "The Niagara of India.",
+      "packages": ["athirappilly-falls"]
+    }
+  ]
 }
 
 

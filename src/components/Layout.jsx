@@ -8,7 +8,7 @@ export default function Layout() {
     <>
       <Header />
 
-      <main className="pt-32 min-h-screen bg-white">
+      <main className="pt-18 min-h-screen bg-white">
         <Outlet />
       </main>
 

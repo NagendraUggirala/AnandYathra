@@ -10,7 +10,7 @@ export default function AboutFounder() {
       {/* =======================
      1. ABOUT FOUNDER 
 ========================= */}
-<section className="max-w-7xl mx-auto px-5 pt-26 mb-16">
+<section className="max-w-7xl mx-auto px-5 pt-32 mb-16">
 
   {/* Title + Logo */}
   <div className="flex items-center gap-4 mb-12">

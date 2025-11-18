@@ -25,7 +25,7 @@ export default function ContactPremium() {
   const toggleFAQ = (i) => setFaqOpen(faqOpen === i ? null : i);
 
   return (
-    <div className="max-w-7xl mx-auto px-5 pt-26 mb-16">
+    <div className="max-w-7xl mx-auto px-5 pt-32 mb-16">
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <header className="text-center mb-12">
