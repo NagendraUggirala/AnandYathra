@@ -8,7 +8,7 @@ export default function Trips() {
   const tripList = Object.values(trips);
 
   return (
-    <div className="max-w-7xl mx-auto px-5 pt-28 pb-16">
+    <div className="max-w-7xl mx-auto px-5 pt-18 pb-16">
       <h1 className="text-3xl md:text-4xl font-extrabold text-center bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
         Explore All Trips
       </h1>

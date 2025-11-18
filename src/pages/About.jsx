@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AboutFounder() {
   return (
-    <div className="pt-28">
+    <div className="pt-18">
 
       {/* =======================
           STORY EXPANSION / FOUNDER
