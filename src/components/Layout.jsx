@@ -7,9 +7,11 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+
+      <main className="pt-32 min-h-screen bg-white">
         <Outlet />
       </main>
+
       <Footer />
     </>
   );
