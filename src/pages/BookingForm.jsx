@@ -1,23 +1,35 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import tripsData from "../data/tripsData.json";
+import packagesData from "../data/packages.json";
 
 export default function BookingForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const trip = tripsData.find((t) => t.id === Number(id));
 
+  // CHECK TRIP OR PACKAGE (ALWAYS RUN HOOKS FIRST)
+  const trip = tripsData.find((t) => t.id === id);
+  const pkg = packagesData[id];
+
+  // DECIDE WHICH DATA TO USE
+  const data = trip || pkg;
+  const name = data?.title;
+  const price = data?.price;
+
+  // ALWAYS CALL useState BEFORE ANY CONDITIONAL RETURNS
   const [form, setForm] = useState({
     name: "",
     email: "",
     travellers: 1,
-    date: ""
+    date: "",
   });
 
-  if (!trip) {
+  // NOW YOU CAN Safely Return
+  if (!data) {
     return (
-      <div className="max-w-3xl mx-auto px-5 pt-28 pb-20 text-center text-xl">
-        Trip not found
+      <div className="max-w-3xl mx-auto px-5 pt-32 pb-20 text-center text-xl">
+        Package or Trip not found
       </div>
     );
   }
@@ -28,66 +40,59 @@ export default function BookingForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    navigate("/payment", { state: { trip, form } });
+    navigate("/payment", { state: { data, form } });
   }
 
   return (
-    <div className="max-w-xl mx-auto px-5 pt-28 pb-20">
+    <div className="max-w-xl mx-auto px-5 pt-32 pb-20">
       <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
 
-        {/* Title */}
         <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
-          Booking — {trip.title}
+          Booking — {name}
         </h2>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
 
           <input
             name="name"
             value={form.name}
             onChange={handleChange}
-            required
             placeholder="Full Name"
-            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
+            required
+            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             name="email"
             value={form.email}
             onChange={handleChange}
-            required
             type="email"
             placeholder="Email Address"
-            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
+            required
+            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             name="travellers"
             value={form.travellers}
             onChange={handleChange}
-            min="1"
             type="number"
-            placeholder="Number of Travellers"
-            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
+            min="1"
+            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             name="date"
             value={form.date}
             onChange={handleChange}
-            required
             type="date"
-            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none"
+            required
+            className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-400"
           />
 
-          {/* Total + Button */}
-          <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center justify-between mt-5">
             <div className="text-lg font-bold">
-              Total:
-              <span className="text-green-600 ml-1">
-                ₹{(trip.price * (form.travellers || 1)).toLocaleString()}
-              </span>
+              Total: <span className="text-green-600">₹{price.toLocaleString()}</span>
             </div>
 
             <button

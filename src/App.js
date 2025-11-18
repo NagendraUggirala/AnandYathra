@@ -20,25 +20,33 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
-        {/* All pages inside Layout */}
+
+        {/* Wrap all pages inside Layout */}
         <Route element={<Layout />}>
-  <Route path="/" element={<Home />} />
-  <Route path="/trips" element={<Trips />} />   {/* NEW */}
-  <Route path="/destinations" element={<Destinations />} />
 
-  <Route path="/category/:categoryId" element={<CategoryPlaces />} />
-  <Route path="/category/:categoryId/:placeId" element={<PlaceDetails />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/trips" element={<Trips />} />
 
-  <Route path="/trip/:id" element={<TripDetails />} />
-  <Route path="/book/:id" element={<BookingForm />} />
-  <Route path="/payment" element={<PaymentPage />} />
-  <Route path="/success" element={<SuccessPage />} />
+          {/* Destination Pages */}
+          <Route path="/destinations" element={<Destinations />} />
+          <Route path="/category/:categoryId" element={<CategoryPlaces />} />
+          <Route path="/category/:categoryId/:placeId" element={<PlaceDetails />} />
 
-  <Route path="/signin" element={<SignIn />} />
-  <Route path="/signup" element={<SignUp />} />
-</Route>
+          {/* Trip Details */}
+          <Route path="/trip/:id" element={<TripDetails />} />
 
+          {/* ⭐ Correct Booking Route for OPTION B */}
+          <Route path="/booking/:id" element={<BookingForm />} />
+
+          {/* Payment */}
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/success" element={<SuccessPage />} />
+
+          {/* Auth */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+
+        </Route>
       </Routes>
     </BrowserRouter>
   );

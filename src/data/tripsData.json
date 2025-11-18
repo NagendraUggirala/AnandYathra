@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "Bali-romantic-escape",
     "title": "Bali – Romantic Beach Escape",
     "location": "Bali, Indonesia",
     "days": 5,
@@ -11,7 +11,7 @@
     "description": "Perfect honeymoon package with private dinners, spa, and beach resort stay."
   },
   {
-    "id": 2,
+    "id": "Goa-Family",
     "title": "Goa – Family Beach Holiday",
     "location": "Goa, India",
     "days": 3,
@@ -22,7 +22,7 @@
     "description": "Family-friendly resort, watersports, and easy transfers."
   },
   {
-    "id": 3,
+    "id": "Tirupati-Darshan",
     "title": "Tirupati Darshan",
     "location": "Tirupati, India",
     "days": 2,
@@ -33,7 +33,7 @@
     "description": "Quick and convenient darshan package with coach transfers."
   },
   {
-    "id": 4,
+    "id": "Ladakh-Adventure",
     "title": "Leh-Ladakh Adventure Ride",
     "location": "Ladakh, India",
     "days": 7,
@@ -44,7 +44,7 @@
     "description": "Bike rides across high passes with camping and guides."
   },
   {
-    "id": 5,
+    "id": "swiss-alps-luxury",
     "title": "Swiss Alps Luxury",
     "location": "Switzerland",
     "days": 7,
@@ -55,7 +55,7 @@
     "description": "Luxury alpine stay, scenic trains and guided tours."
   },
   {
-    "id": 6,
+    "id": "kerala-backwaters-family-cruise",
     "title": "Kerala Backwaters – Family Cruise",
     "location": "Alleppey, Kerala",
     "days": 4,
