@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Layout from "./components/Layout";
 
@@ -24,24 +25,24 @@ import Profile from "./pages/Profile";
 
 function App() {
   return (
-    
+    <>
+      {/* Toast for Favorites & Alerts */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <Routes>
 
-        {/* 🚫 AUTH PAGES WITHOUT HEADER/FOOTER */}
+        {/* Auth pages without Layout */}
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
 
-        {/* 🌍 ALL OTHER PAGES INSIDE LAYOUT */}
+        {/* All other pages inside Layout */}
         <Route element={<Layout />}>
 
-          {/* HOME */}
           <Route path="/" element={<Home />} />
 
-          {/* TRIPS */}
           <Route path="/trips" element={<Trips />} />
           <Route path="/trip/:id" element={<TripDetails />} />
 
-          {/* DESTINATIONS */}
           <Route path="/destinations" element={<Destinations />} />
           <Route path="/category/:categoryId" element={<CategoryPlaces />} />
           <Route
@@ -49,21 +50,17 @@ function App() {
             element={<PlaceDetails />}
           />
 
-          {/* BOOKING FLOW */}
           <Route path="/booking/:id" element={<BookingForm />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/success" element={<SuccessPage />} />
 
-          {/* PROFILE */}
           <Route path="/profile" element={<Profile />} />
-
-          {/* STATIC PAGES */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
 
         </Route>
       </Routes>
-    
+    </>
   );
 }
 

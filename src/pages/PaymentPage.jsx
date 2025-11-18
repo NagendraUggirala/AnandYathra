@@ -14,33 +14,87 @@ export default function PaymentPage() {
     );
   }
 
-  const { data, form } = state;   // data = trip OR package
-  const total = data.price * (Number(form.travellers) || 1);
+  const { data, form } = state;
+
+  const persons = Number(form.persons) || 1;
+  const travelType = form.travelType;
+  const roomType = form.roomType;
+
+  // ⭐ PERSON-WISE PRICE CALCULATION
+  let travelCost = 0;
+  let roomCost = 0;
+
+  // Travel charges per person
+  if (travelType === "flight") travelCost = 5000 * persons;
+  if (travelType === "train") travelCost = 1500 * persons;
+  if (travelType === "bus") travelCost = 800 * persons;
+  if (travelType === "no-flight") travelCost = 0;
+
+  // Room charges per person
+  if (roomType === "deluxe") roomCost = 1000 * persons;
+  if (roomType === "premium") roomCost = 2500 * persons;
+  if (roomType === "standard") roomCost = 0;
+
+  const basePrice = data.price * persons;
+
+  const grandTotal = basePrice + travelCost + roomCost;
 
   function handlePay() {
-    navigate("/success", { state: { data, form, total } });
+    navigate("/success", { state: { data, form, total: grandTotal } });
   }
 
   return (
     <div className="max-w-xl mx-auto px-5 pt-32 pb-20">
+
       <h2 className="text-3xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
-        Payment
+        Payment Summary
       </h2>
 
-      <p className="mb-2 text-lg"><strong>Package / Trip:</strong> {data.title}</p>
-      <p className="mb-2"><strong>Name:</strong> {form.name}</p>
-      <p className="mb-2"><strong>Email:</strong> {form.email}</p>
-      <p className="mb-2"><strong>Travellers:</strong> {form.travellers}</p>
+      {/* Trip / Package Info */}
+      <div className="p-5 bg-white rounded-2xl shadow-md border">
+        <p className="text-lg font-semibold mb-2">
+          Package / Trip: {data.title}
+        </p>
 
-      <p className="mt-4 mb-6 text-2xl font-bold text-green-600">
-        Amount: ₹{total.toLocaleString()}
-      </p>
+        <p><strong>Name:</strong> {form.name}</p>
+        <p><strong>Email:</strong> {form.email}</p>
+        <p><strong>Persons:</strong> {persons}</p>
+        <p><strong>Travel Type:</strong> {travelType}</p>
+        <p><strong>Room Type:</strong> {roomType}</p>
+      </div>
 
+      {/* PRICE BREAKDOWN */}
+      <div className="mt-6 p-6 bg-gray-50 rounded-2xl border shadow-sm">
+        <h3 className="text-xl font-bold mb-4">Price Breakdown</h3>
+
+        <p className="text-lg">
+          <span className="font-semibold">Base Price × {persons}: </span>
+          ₹{basePrice.toLocaleString()}
+        </p>
+
+        <p className="text-lg mt-2">
+          <span className="font-semibold">Traveling Charges: </span>
+          ₹{travelCost.toLocaleString()}
+        </p>
+
+        <p className="text-lg mt-2">
+          <span className="font-semibold">Room Charges: </span>
+          ₹{roomCost.toLocaleString()}
+        </p>
+
+        <hr className="my-4" />
+
+        <p className="text-3xl font-bold text-green-700">
+          Total: ₹{grandTotal.toLocaleString()}
+        </p>
+      </div>
+
+      {/* PAY BUTTON */}
       <button
         onClick={handlePay}
-        className="w-full bg-gradient-to-r from-green-500 to-green-700 
+        className="mt-8 w-full bg-gradient-to-r from-green-500 to-green-700 
                    text-white py-3 rounded-xl font-semibold shadow-lg
-                   hover:scale-[1.03] hover:shadow-xl transition-all"
+                   hover:scale-[1.04] hover:shadow-xl transition-all"
       >
         Pay Now (Demo)
       </button>
