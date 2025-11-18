@@ -16,7 +16,7 @@ export default function Header() {
             alt="Profile"
             className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full shadow-lg object-cover object-top"
           />
-<br />
+
           <img
             src="/assets/Anandlogo.png"
             alt="Logo"
@@ -36,6 +36,10 @@ export default function Header() {
           <Link to="/" className="hover:text-orange-600 transition">Home</Link>
           <Link to="/destinations" className="hover:text-orange-600 transition">Destinations</Link>
           <Link to="/trips" className="hover:text-orange-600 transition">Trips</Link>
+
+          {/* ⭐ Added Links */}
+          <Link to="/about" className="hover:text-orange-600 transition">About</Link>
+          <Link to="/contact" className="hover:text-orange-600 transition">Contact Us</Link>
         </nav>
 
         {/* Desktop Buttons */}
@@ -66,6 +70,7 @@ export default function Header() {
       {/* Mobile Dropdown Menu */}
       {open && (
         <div className="md:hidden bg-white shadow-md px-6 pb-4 space-y-4">
+          
           <Link
             onClick={() => setOpen(false)}
             to="/"
@@ -88,6 +93,24 @@ export default function Header() {
             className="block text-lg font-medium text-[#1b2b47] hover:text-orange-600 transition"
           >
             Trips
+          </Link>
+
+          {/* ⭐ Fixed About link */}
+          <Link
+            onClick={() => setOpen(false)}
+            to="/about"
+            className="block text-lg font-medium text-[#1b2b47] hover:text-orange-600 transition"
+          >
+            About
+          </Link>
+
+          {/* ⭐ Fixed Contact link */}
+          <Link
+            onClick={() => setOpen(false)}
+            to="/contact"
+            className="block text-lg font-medium text-[#1b2b47] hover:text-orange-600 transition"
+          >
+            Contact Us
           </Link>
 
           <div className="flex flex-col gap-3 pt-3">
