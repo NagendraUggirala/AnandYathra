@@ -43,12 +43,12 @@ export default function Blog() {
   const [activeBlog, setActiveBlog] = useState(null);
 
   return (
-    <div className="w-full bg-gradient-to-br from-[#E8F1FF] to-white pb-20">
-
-    
-
+   
+    <div className="w-full py-16 px-4 sm:px-6 lg:px-12 xl:px-24 
+     bg-gradient-to-b from-[#F8FBFF] to-[#F3F7FF]">
       {/* BLOG CARDS */}
-      <section className="container mx-auto px-6 mt-16">
+      <section className="max-w-7xl mx-auto mt-16">
+
         <h2 className="text-3xl sm:text-4xl font-extrabold text-center 
           bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent drop-shadow">
           Latest Travel Stories
@@ -110,5 +110,6 @@ export default function Blog() {
         </div>
       )}
     </div>
+    
   );
 }

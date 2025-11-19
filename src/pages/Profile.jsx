@@ -1,140 +1,237 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Trash2, Edit3, Heart } from "lucide-react";
+import { Trash2, Edit3, Heart, Clock, CheckCircle } from "lucide-react";
+import { getWishlist, removeFromWishlist } from "../utils/wishlist";
 
 export default function Profile() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("upcoming");
+  const [wishlistState, setWishlistState] = useState([]);
 
-  // Redirect if not logged in
+  useEffect(() => {
+    setWishlistState(getWishlist());
+  }, []);
+
   if (!user) {
     navigate("/signin");
     return null;
   }
 
-  // Get bookings from localStorage
+  // BOOKINGS
   const allBookings = JSON.parse(localStorage.getItem("bookings")) || [];
   const userBookings = allBookings.filter((b) => b.email === user.email);
 
+  const today = new Date();
+  const upcoming = userBookings.filter((b) => new Date(b.date) >= today);
+  const past = userBookings.filter((b) => new Date(b.date) < today);
+
   function cancelBooking(index) {
-    const newList = [...allBookings];
-    newList.splice(index, 1);
-    localStorage.setItem("bookings", JSON.stringify(newList));
+    const updated = [...allBookings];
+    updated.splice(index, 1);
+    localStorage.setItem("bookings", JSON.stringify(updated));
     window.location.reload();
   }
 
-  return (
-    <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+  function removeWish(id) {
+    removeFromWishlist(id);
+    setWishlistState(getWishlist());
+  }
 
-      {/* USER HEADER */}
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-32">
+
+      {/* ==================== PREMIUM PROFILE HEADER ==================== */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-3xl shadow-xl p-8 border border-gray-200 flex flex-col md:flex-row gap-8 items-center"
+        className="relative bg-gradient-to-r from-blue-600/10 to-yellow-500/10 
+                   backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 
+                   p-10 flex flex-col md:flex-row items-center gap-10 overflow-hidden"
       >
+        {/* Floating Accent Circle */}
+        <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-300/20 rounded-full blur-3xl"></div>
+
         {/* Avatar */}
-        <div className="relative">
+        <div className="relative group">
           <img
             src={user.avatar}
             alt="avatar"
-            className="w-32 h-32 rounded-full border-4 border-orange-500 shadow-lg object-cover"
+            className="w-36 h-36 rounded-full shadow-xl border-4 border-white object-cover
+                       group-hover:scale-105 transition"
           />
-
-          {/* Edit Profile Icon */}
-          <button className="absolute bottom-1 right-1 bg-orange-500 text-white p-2 rounded-full shadow hover:bg-orange-600">
+          <button className="absolute bottom-2 right-2 bg-blue-600 text-white p-2 rounded-full shadow hover:bg-blue-700">
             <Edit3 size={18} />
           </button>
         </div>
 
-        {/* Details */}
-        <div className="flex-1">
-          <h2 className="text-3xl font-extrabold text-gray-800">{user.name}</h2>
+        {/* User Info */}
+        <div className="flex-1 text-center md:text-left">
+          <h2 className="text-4xl font-extrabold text-gray-900">{user.name}</h2>
           <p className="text-gray-600 text-lg">{user.email}</p>
 
-          <div className="mt-5 flex gap-4">
+          <div className="mt-6 flex justify-center md:justify-start gap-4">
             <button
               onClick={() => navigate("/")}
-              className="px-5 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow"
+              className="px-6 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 shadow-lg"
             >
-              Go Home
+              Home
             </button>
+
             <button
               onClick={signOut}
-              className="px-5 py-2 rounded-xl bg-red-500 text-white font-semibold hover:bg-red-600 shadow"
+              className="px-6 py-2 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 shadow-lg"
             >
-              Log Out
+              Logout
             </button>
           </div>
         </div>
       </motion.div>
 
-      {/* BOOKING HISTORY */}
-      <div className="mt-16">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">
-          Your Bookings
-        </h3>
+      {/* ==================== TRIP TABS ==================== */}
+      <div className="mt-20">
+        <h3 className="text-3xl font-extrabold text-gray-900 mb-6">Your Trips</h3>
 
-        {userBookings.length === 0 ? (
-          <div className="text-gray-500 text-lg">
-            You have no bookings yet.  
-            <Link to="/trips" className="ml-2 text-blue-500 underline">
-              Book a trip →
-            </Link>
-          </div>
-        ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {userBookings.map((b, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200"
-              >
-                {/* Image */}
-                <img
-                  src={b.image}
-                  alt={b.title}
-                  className="w-full h-40 object-cover"
-                />
+        {/* Tabs */}
+        <div className="flex gap-6 border-b pb-2">
+          {[
+            { id: "upcoming", label: "Upcoming", icon: <Clock size={18} /> },
+            { id: "past", label: "Past Trips", icon: <CheckCircle size={18} /> }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`pb-2 flex items-center gap-2 text-lg font-semibold transition ${
+                activeTab === tab.id
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              {tab.icon} {tab.label}
+            </button>
+          ))}
+        </div>
 
-                <div className="p-5">
-                  <h4 className="text-xl font-bold text-gray-800">{b.title}</h4>
-                  <p className="text-gray-500 mt-1">{b.date}</p>
+        {/* Trip Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+          {(activeTab === "upcoming" ? upcoming : past).map((b, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl transition"
+            >
+              <img src={b.image} alt={b.title} className="w-full h-48 object-cover" />
 
-                  <p className="text-gray-700 mt-2">
-                    Travellers:{" "}
-                    <span className="font-semibold">{b.travellers}</span>
-                  </p>
+              <div className="p-6">
+                <h4 className="text-xl font-extrabold text-gray-900">{b.title}</h4>
+                <p className="text-gray-500">{b.date}</p>
 
-                  <p className="text-green-600 font-bold mt-2">
-                    Paid: ₹{b.total.toLocaleString()}
-                  </p>
+                <p className="text-gray-700 mt-2">
+                  Travellers: <span className="font-semibold">{b.travellers}</span>
+                </p>
 
+                <p className="text-green-600 font-extrabold mt-2">
+                  ₹{b.total.toLocaleString()}
+                </p>
+
+                {activeTab === "upcoming" && (
                   <button
                     onClick={() => cancelBooking(index)}
-                    className="mt-4 w-full py-2 rounded-xl bg-red-100 text-red-600 font-semibold 
-                               hover:bg-red-200 flex items-center justify-center gap-2"
+                    className="mt-4 w-full py-2 rounded-xl bg-red-100 text-red-600 font-bold hover:bg-red-200 flex items-center justify-center gap-2"
                   >
-                    <Trash2 size={18} /> Cancel Booking
+                    <Trash2 size={18} /> Cancel
                   </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {activeTab === "upcoming" && upcoming.length === 0 && (
+          <p className="text-gray-500 mt-6">
+            No upcoming trips.{" "}
+            <Link to="/trips" className="text-blue-600 underline">
+              Book now →
+            </Link>
+          </p>
+        )}
+        {activeTab === "past" && past.length === 0 && (
+          <p className="text-gray-500 mt-6">No past trips yet.</p>
         )}
       </div>
 
-      {/* WISHLIST SECTION */}
-      <div className="mt-16">
-        <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-          Wishlist <Heart className="text-red-500" />
+      {/* ==================== PREMIUM WISHLIST ==================== */}
+      <div className="mt-24">
+        <h3 className="text-3xl font-extrabold text-gray-900 flex items-center gap-2 mb-6">
+          Wishlist <Heart className="text-red-500" fill="red" size={28} />
         </h3>
 
-        <div className="mt-4 text-gray-500">
-          No wishlist items yet.
-        </div>
+        {wishlistState.length === 0 ? (
+          <div className="text-gray-500 bg-white p-10 rounded-3xl shadow-inner text-center border">
+            No wishlist items yet.  
+            <Link className="text-blue-600 underline ml-1" to="/destinations">
+              Explore →
+            </Link>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {wishlistState.map((item) => (
+              <Link
+                key={item.id}
+                to={
+                  item.tripId
+                    ? `/trip/${item.tripId}`
+                    : `/category/${item.categoryId}/${item.placeId}`
+                }
+                className="block group"
+              >
+                <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden hover:shadow-2xl transition flex flex-col">
+
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
+                  />
+
+                  <div className="p-5 flex-1 flex flex-col">
+                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-yellow-600 transition">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+                      {item.location}
+                    </p>
+
+                    <div className="flex justify-between items-center mt-4">
+                      {item.price ? (
+                        <p className="text-green-600 font-extrabold text-lg">
+                          ₹{item.price.toLocaleString()}
+                        </p>
+                      ) : (
+                        <p className="text-blue-600 font-semibold">Explore →</p>
+                      )}
+
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          removeWish(item.id);
+                        }}
+                        className="text-red-500 font-semibold hover:underline"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

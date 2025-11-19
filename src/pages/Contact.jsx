@@ -77,7 +77,7 @@ export default function ContactPremium() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="mt-2 w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-4 focus:ring-indigo-200 transition"
-                    placeholder="you@company.com"
+                    placeholder="mail id @example.com"
                   />
                 </label>
 
