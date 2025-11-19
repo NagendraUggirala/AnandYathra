@@ -4,6 +4,11 @@ import HomeBanner from "../components/Home/HomeBanner";
 import TripList from "../components/Home/TripList";
 import Ourservices from "../components/Home/Ourservices";
 
+import Testimonials from "../components/Home/Testimonials";
+import BlogDetails from "../components/Home/Blog";
+
+
+
 export default function Home() {
   return (
     <>
@@ -14,6 +19,8 @@ export default function Home() {
           <HomeBanner />
           <TripList />
           <Ourservices />
+          <BlogDetails />
+          <Testimonials/>
         
         </div>
       </main>

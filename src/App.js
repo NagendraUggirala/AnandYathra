@@ -8,6 +8,9 @@ import Home from "./pages/Home";
 import Trips from "./pages/Trips";
 import TripDetails from "./pages/TripDetails";
 
+// ✅ FIXED PATH
+import BlogDetails from "./components/Home/Blog";
+
 import BookingForm from "./pages/BookingForm";
 import PaymentPage from "./pages/PaymentPage";
 import SuccessPage from "./pages/SuccessPage";
@@ -42,6 +45,9 @@ function App() {
 
           <Route path="/trips" element={<Trips />} />
           <Route path="/trip/:id" element={<TripDetails />} />
+
+          {/* ✅ Blog Details Route */}
+          <Route path="/blogdetails/:id" element={<BlogDetails />} />
 
           <Route path="/destinations" element={<Destinations />} />
           <Route path="/category/:categoryId" element={<CategoryPlaces />} />
