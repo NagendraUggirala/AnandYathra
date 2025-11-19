@@ -8,36 +8,38 @@ export default function Header() {
   const { user, signOut } = useAuth();
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-white text-navy shadow-lg border-b border-gold/20">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <header className="fixed w-full top-0 z-50 bg-white shadow-md border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
         
-        {/* ⭐ BRAND — EXACT OLD DESIGN RESTORED */}
+        {/* ⭐ BRAND */}
         <div className="flex items-center gap-3">
-          {/* Founder Photo */}
+          {/* Founder Image */}
           <img
             src="/assets/founder.jpg"
             alt="Founder"
-            className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full object-cover object-top shadow-lg"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover object-top shadow-md"
           />
 
           {/* Logo */}
           <img
             src="/assets/Anandlogo.png"
             alt="Logo"
-            className="w-12 h-12 object-contain"
+            className="w-10 h-10 object-contain sm:w-12 sm:h-12"
           />
 
-          {/* Yatra Text */}
-          <div>
-            <h1 className="text-xl font-bold text-orange-600">ANAND YATRA</h1>
-            <p className="text-sm text-gray-600 italic mt-0.5">
+          {/* Title — FIXED (mobile visible now) */}
+          <div className="flex flex-col leading-tight">
+            <h1 className="text-lg sm:text-xl font-bold text-orange-600">
+              ANAND YATRA
+            </h1>
+            <p className="text-[10px] sm:text-xs text-gray-600 italic">
               "Dharmo Rakshati Rakshitah"
             </p>
           </div>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-lg font-medium text-[#1b2b47]">
+        {/* ⭐ Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8 text-[16px] font-medium text-[#1b2b47]">
           <Link to="/" className="hover:text-orange-600 transition">Home</Link>
           <Link to="/destinations" className="hover:text-orange-600 transition">Destinations</Link>
           <Link to="/trips" className="hover:text-orange-600 transition">Trips</Link>
@@ -45,20 +47,20 @@ export default function Header() {
           <Link to="/contact" className="hover:text-orange-600 transition">Contact</Link>
         </nav>
 
-        {/* Desktop Right Section */}
+        {/* ⭐ Desktop Auth */}
         <div className="hidden md:flex items-center gap-4">
           {!user ? (
             <>
               <Link
                 to="/signup"
-                className="bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition"
+                className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600 transition"
               >
                 Sign Up
               </Link>
 
               <Link
                 to="/signin"
-                className="bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition"
+                className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600 transition"
               >
                 Sign In
               </Link>
@@ -70,7 +72,7 @@ export default function Header() {
                 <img
                   src={user.avatar}
                   alt="avatar"
-                  className="w-10 h-10 rounded-full border shadow"
+                  className="w-9 h-9 rounded-full border shadow"
                 />
                 <span className="font-semibold text-[#1b2b47]">
                   {user.name}
@@ -88,7 +90,7 @@ export default function Header() {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* ⭐ Mobile Menu Button */}
         <button
           className="md:hidden text-3xl text-[#1b2b47]"
           onClick={() => setOpen(!open)}
@@ -97,25 +99,45 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ⭐ Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-white shadow-md px-6 pb-4 space-y-4">
-          <Link to="/" onClick={() => setOpen(false)} className="block text-lg font-medium">
+        <div className="md:hidden bg-white shadow-md px-6 py-4 space-y-4">
+
+          {/* 📌 NEW — Mobile Profile Section */}
+          {user && (
+            <Link
+              to="/profile"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 border-b pb-3"
+            >
+              <img
+                src={user.avatar}
+                className="w-10 h-10 rounded-full shadow"
+              />
+              <span className="font-semibold text-[#1b2b47] text-lg">
+                {user.name}
+              </span>
+            </Link>
+          )}
+
+          {/* Nav Links */}
+          <Link onClick={() => setOpen(false)} to="/" className="block text-lg">
             Home
           </Link>
-          <Link to="/destinations" onClick={() => setOpen(false)} className="block text-lg">
+          <Link onClick={() => setOpen(false)} to="/destinations" className="block text-lg">
             Destinations
           </Link>
-          <Link to="/trips" onClick={() => setOpen(false)} className="block text-lg">
+          <Link onClick={() => setOpen(false)} to="/trips" className="block text-lg">
             Trips
           </Link>
-          <Link to="/about" onClick={() => setOpen(false)} className="block text-lg">
+          <Link onClick={() => setOpen(false)} to="/about" className="block text-lg">
             About
           </Link>
-          <Link to="/contact" onClick={() => setOpen(false)} className="block text-lg">
+          <Link onClick={() => setOpen(false)} to="/contact" className="block text-lg">
             Contact
           </Link>
 
+          {/* Auth Buttons */}
           {!user ? (
             <>
               <Link
@@ -135,17 +157,15 @@ export default function Header() {
               </Link>
             </>
           ) : (
-            <>
-              <button
-                onClick={() => {
-                  signOut();
-                  setOpen(false);
-                }}
-                className="text-red-600 font-semibold"
-              >
-                Logout
-              </button>
-            </>
+            <button
+              onClick={() => {
+                signOut();
+                setOpen(false);
+              }}
+              className="text-red-600 font-semibold text-lg"
+            >
+              Logout
+            </button>
           )}
         </div>
       )}

@@ -2,7 +2,8 @@ import React from "react";
 import trips from "../data/trips.json";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Star, Calendar } from "lucide-react";
+import { MapPin, Star, Calendar, Heart } from "lucide-react";
+import { addToWishlist } from "../utils/wishlist";
 
 export default function Trips() {
   const tripList = Object.values(trips);
@@ -19,22 +20,43 @@ export default function Trips() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {tripList.map((trip) => (
-          <Link key={trip.id} to={`/trip/${trip.id}`}>
+          <Link key={trip.id} to={`/trip/${trip.id}`} className="relative block">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               whileHover={{ scale: 1.05 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden border cursor-pointer"
+              className="bg-white rounded-2xl shadow-lg overflow-hidden border cursor-pointer relative"
             >
               {/* Image */}
-              <div className="h-48 w-full overflow-hidden">
+              <div className="h-48 w-full overflow-hidden relative">
                 <img
                   src={trip.image}
                   alt={trip.title}
                   className="w-full h-full object-cover"
                 />
+
+                {/* Wishlist Button */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault(); // stop link navigation
+
+                    addToWishlist({
+                      id: String(trip.id),
+                      image: trip.image,
+                      title: trip.title,
+                      location: trip.destination,
+                      price: trip.price,
+                      tripId: trip.id, // ⭐ used for navigation from wishlist
+                      categoryId: null,
+                      placeId: null
+                    });
+                  }}
+                  className="absolute top-3 right-3 bg-white p-2 rounded-full shadow z-20 hover:scale-110 transition"
+                >
+                  <Heart className="text-red-500" />
+                </button>
               </div>
 
               {/* Content */}

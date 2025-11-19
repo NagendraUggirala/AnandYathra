@@ -53,6 +53,7 @@ export default function FeaturesSection() {
   ];
 
   return (
+    
     <div className="w-full py-16 px-6 bg-gradient-to-b from-[#F8FBFF] to-[#F3F7FF]">
 
       {/* HEADING WITH SAME COLORS YOU GAVE */}
