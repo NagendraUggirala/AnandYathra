@@ -43,7 +43,7 @@ export default function Profile() {
     }
   }, [tab]);
 
-  // Load wishlist
+  // Load wishlist on first render
   useEffect(() => {
     setWishlistState(getWishlist());
   }, []);
@@ -63,20 +63,16 @@ export default function Profile() {
   const today = new Date();
 
   const upcoming = myBookings.filter(
-    (b) =>
-      b.status === "active" &&
-      new Date(b.date) >= today
+    (b) => b.status === "active" && new Date(b.date) >= today
   );
 
   const past = myBookings.filter(
-    (b) =>
-      b.status === "active" &&
-      new Date(b.date) < today
+    (b) => b.status === "active" && new Date(b.date) < today
   );
 
   const cancelled = myBookings.filter((b) => b.status === "cancelled");
 
-  // ===== Cancel Booking (Fix) =====
+  // ===== Cancel Booking =====
   function cancelBooking(bookingId) {
     const updated = allBookings.map((b) =>
       b.bookingId === bookingId ? { ...b, status: "cancelled" } : b
@@ -88,12 +84,28 @@ export default function Profile() {
     setTimeout(() => window.location.reload(), 400);
   }
 
-  // ===== Remove Wishlist Item =====
+  // ===== Wishlist Remove WITH Popup =====
   function removeWish(id) {
     removeFromWishlist(id);
     setWishlistState(getWishlist());
+
+    toast.custom(
+      (t) => (
+        <div className="flex items-center gap-3 bg-white border shadow-lg rounded-xl px-4 py-3">
+          <span className="text-xl">💔</span>
+          <div>
+            <p className="font-bold text-gray-800">Removed from Wishlist</p>
+            <p className="text-gray-600 text-sm">
+              Item has been removed successfully.
+            </p>
+          </div>
+        </div>
+      ),
+      { duration: 2000 }
+    );
   }
 
+  // Animation 
   const tabAnimation = {
     initial: { opacity: 0, y: 40 },
     animate: { opacity: 1, y: 0 },
@@ -151,7 +163,7 @@ export default function Profile() {
               </button>
             </div>
 
-            {/* User Info */}
+            {/* Info */}
             <div className="text-center md:text-left flex-1">
               <h2 className="text-4xl font-extrabold">{user.name}</h2>
               <p className="text-gray-600 text-lg">{user.email}</p>
