@@ -2,7 +2,7 @@
   "beaches": {
     "id": "beaches",
     "title": "Beaches",
-    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://lp-cms-production.imgix.net/2024-12/GettyRF178407725.jpg?auto=format,compress&q=72&fit=crop",
     "destinations": [
       {
         "id": "goa",
@@ -30,7 +30,7 @@
   "mountains": {
     "id": "mountains",
     "title": "Mountains",
-    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://images.squarespace-cdn.com/content/v1/5e8ee22524984c387cdaed27/f4ec0ded-9ff4-406e-8dd1-5f0fe74e48bf/Denali%2C+Alaska.jpg",
     "destinations": [
       {
         "id": "manali",
@@ -58,7 +58,7 @@
   "spiritual": {
     "id": "spiritual",
     "title": "Spiritual Destinations",
-    "image": "https://images.unsplash.com/photo-1615553190383-f0a69d71b3ae?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://www.shutterstock.com/image-photo/big-buddha-wat-paknam-sunset-260nw-2263022481.jpg",
     "destinations": [
       {
         "id": "haridwar",
@@ -86,7 +86,7 @@
   "luxury": {
     "id": "luxury",
     "title": "Luxury Resorts",
-    "image": "https://images.unsplash.com/photo-1519821172141-b5d8a4e2c06e?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://images.trvl-media.com/lodging/89000000/88650000/88646300/88646240/0c45301d.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill",
     "destinations": [
       {
         "id": "goa-luxury",
@@ -109,7 +109,7 @@
   "adventure": {
     "id": "adventure",
     "title": "Adventure Trips",
-    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://res.cloudinary.com/worldpackers/image/upload/c_fill,f_auto,q_auto,w_1024/v1/guides/article_cover/ejgcq0acumqaosd7kl26?_a=BACADKGT",
     "destinations": [
       {
         "id": "ladakh",
@@ -132,7 +132,7 @@
   "honeymoon": {
     "id": "honeymoon",
     "title": "Honeymoon Destinations",
-    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://www.bruisedpassports.com/wp-content/uploads/2017/12/seychelles-accommodation-5-1024x684.jpg",
     "destinations": [
       {
         "id": "kashmir",
@@ -155,7 +155,7 @@
   "wildlife": {
     "id": "wildlife",
     "title": "Wildlife Tours",
-    "image": "https://images.unsplash.com/photo-1543248939-ff40856f65d4?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://media.tacdn.com/media/attractions-splice-spp-674x446/07/36/4a/fe.jpg",
     "destinations": [
       {
         "id": "ranthambore",
@@ -178,7 +178,7 @@
   "desert": {
     "id": "desert",
     "title": "Desert Experiences",
-    "image": "https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=1200&q=80&auto=format&fit=crop",
+    "image": "https://desertbuggyrental.com/wp-content/uploads/2024/10/Private-desert-safari-Dubai-1.jpg",
     "destinations": [
       {
         "id": "jaisalmer",
