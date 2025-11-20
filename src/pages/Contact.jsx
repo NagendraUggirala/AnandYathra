@@ -118,117 +118,87 @@ export default function ContactPremium() {
           </motion.form>
 
           {/* Info card */}
-          <motion.aside
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="bg-white/70 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-transparent flex flex-col justify-between"
-          >
-            <div>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-gray-800 mb-4">Get in Touch</h3>
+         <motion.aside
+  initial={{ opacity: 0, y: 8 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.45 }}
+  className="
+    w-full 
+    bg-white/70 backdrop-blur-md 
+    rounded-2xl sm:rounded-3xl 
+    p-5 sm:p-8 lg:p-10 
+    shadow-xl 
+    border border-transparent 
+    flex flex-col justify-between 
+    space-y-6
+  "
+>
+  <div>
+    <h3 className="text-xl sm:text-2xl font-extrabold text-gray-800 mb-4">
+      Get in Touch
+    </h3>
 
-              <div className="space-y-3">
-                <div className="flex items-start gap-3 p-3 bg-white rounded-2xl border border-rose-50 shadow-sm">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
-                    <Phone className="w-6 h-6 text-indigo-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">Phone Support</p>
-                    <p className="text-sm text-gray-600 mt-1">+91 98765 43210</p>
-                  </div>
-                </div>
+    <div className="space-y-4">
+      {/* Phone */}
+      <div className="flex items-start gap-3 p-3 bg-white rounded-xl sm:rounded-2xl border border-rose-50 shadow-sm">
+        <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
+          <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-gray-800">Phone Support</p>
+          <p className="text-sm text-gray-600 mt-1">+91 98765 43210</p>
+        </div>
+      </div>
 
-                <div className="flex items-start gap-3 p-3 bg-white rounded-2xl border border-rose-50 shadow-sm">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
-                    <Mail className="w-6 h-6 text-indigo-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">Email</p>
-                    <p className="text-sm text-gray-600 mt-1">support@anandyatra.com</p>
-                  </div>
-                </div>
+      {/* Email */}
+      <div className="flex items-start gap-3 p-3 bg-white rounded-xl sm:rounded-2xl border border-rose-50 shadow-sm">
+        <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
+          <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-gray-800">Email</p>
+          <p className="text-sm text-gray-600 mt-1">support@anandyatra.com</p>
+        </div>
+      </div>
 
-                <div className="flex items-start gap-3 p-3 bg-white rounded-2xl border border-rose-50 shadow-sm">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
-                    <MapPin className="w-6 h-6 text-indigo-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">Office</p>
-                    <p className="text-sm text-gray-600 mt-1">Hyderabad, Telangana, India</p>
-                  </div>
-                </div>
+      {/* Location */}
+      <div className="flex items-start gap-3 p-3 bg-white rounded-xl sm:rounded-2xl border border-rose-50 shadow-sm">
+        <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
+          <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-gray-800">Office</p>
+          <p className="text-sm text-gray-600 mt-1">Hyderabad, Telangana, India</p>
+        </div>
+      </div>
 
-                <div className="flex items-start gap-3 p-3 bg-white rounded-2xl border border-rose-50 shadow-sm">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
-                    <Clock className="w-6 h-6 text-indigo-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">Working Hours</p>
-                    <p className="text-sm text-gray-600 mt-1">Mon – Sun: 7 AM to 10 PM</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Hours */}
+      <div className="flex items-start gap-3 p-3 bg-white rounded-xl sm:rounded-2xl border border-rose-50 shadow-sm">
+        <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-50 to-pink-50">
+          <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-gray-800">Working Hours</p>
+          <p className="text-sm text-gray-600 mt-1">Mon – Sun: 7 AM to 10 PM</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            {/* Socials + CTA */}
-            <div className="mt-6">
-              <div className="flex flex-wrap gap-3 items-center mb-4">
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  className="p-3 rounded-xl bg-gradient-to-br from-pink-400 to-yellow-400 text-white transform transition hover:scale-105 hover:shadow-[0_10px_30px_rgba(236,72,153,0.18)]"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
+  {/* Social + CTA */}
+  <div className="pt-2">
+    <div className="text-center sm:text-left">
+      <h4 className="text-sm font-semibold text-gray-800">Need Quick Help?</h4>
+      <p className="text-xs text-gray-600 mt-1">
+        For the fastest reply use WhatsApp or call our support line.
+      </p>
+    </div>
+  </div>
+</motion.aside>
 
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  className="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-500 text-white transform transition hover:scale-105 hover:shadow-[0_10px_30px_rgba(59,130,246,0.12)]"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-
-                <a
-                  href="#"
-                  aria-label="YouTube"
-                  className="p-3 rounded-xl bg-gradient-to-br from-red-500 to-red-400 text-white transform transition hover:scale-105 hover:shadow-[0_10px_30px_rgba(239,68,68,0.12)]"
-                >
-                  <Youtube className="w-5 h-5" />
-                </a>
-
-                <a
-                  href="#"
-                  aria-label="Twitter"
-                  className="p-3 rounded-xl bg-gradient-to-br from-slate-800 to-slate-700 text-white transform transition hover:scale-105 hover:shadow-[0_10px_30px_rgba(17,24,39,0.12)]"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-              </div>
-
-              <div className="text-center sm:text-left">
-                <h4 className="text-sm font-semibold text-gray-800">Need Quick Help?</h4>
-                <p className="text-xs text-gray-600 mt-1">For the fastest reply use WhatsApp or call our support line.</p>
-              </div>
-            </div>
-          </motion.aside>
         </div>
 
-        {/* Mobile social row (visible on small screens) */}
-        <div className="mt-8 sm:hidden flex justify-center gap-5">
-          <a href="#" aria-label="Instagram" className="text-pink-500 hover:scale-110 transition">
-            <Instagram className="w-6 h-6" />
-          </a>
-          <a href="#" aria-label="Facebook" className="text-blue-600 hover:scale-110 transition">
-            <Facebook className="w-6 h-6" />
-          </a>
-          <a href="#" aria-label="YouTube" className="text-red-600 hover:scale-110 transition">
-            <Youtube className="w-6 h-6" />
-          </a>
-          <a href="#" aria-label="Twitter" className="text-slate-800 hover:scale-110 transition">
-            <Twitter className="w-6 h-6" />
-          </a>
-        </div>
+    
 
         {/* FAQ Section */}
         <section className="max-w-4xl mx-auto mt-12 px-2 sm:px-6">
