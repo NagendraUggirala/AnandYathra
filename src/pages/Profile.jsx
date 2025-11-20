@@ -22,90 +22,78 @@ export default function Profile() {
   const [tab, setTab] = useState("profile");
   const [wishlistState, setWishlistState] = useState([]);
 
-  // ---- Refs for underline animation ----
+  // ---- Refs for moving underline ----
   const tabRefs = {
     profile: useRef(null),
     upcoming: useRef(null),
     past: useRef(null),
+    cancelled: useRef(null),
     wishlist: useRef(null),
   };
 
   const underlineRef = useRef(null);
 
-  // ---- Move underline smoothly ----
   useLayoutEffect(() => {
     const activeTab = tabRefs[tab]?.current;
     const underline = underlineRef.current;
 
     if (activeTab && underline) {
-      const { offsetLeft, offsetWidth } = activeTab;
-      underline.style.left = offsetLeft + "px";
-      underline.style.width = offsetWidth + "px";
+      underline.style.left = activeTab.offsetLeft + "px";
+      underline.style.width = activeTab.offsetWidth + "px";
     }
   }, [tab]);
 
-  // ---- Load wishlist ----
+  // Load wishlist
   useEffect(() => {
     setWishlistState(getWishlist());
   }, []);
 
-  // ---- Protect route ----
+  // Protect route
   if (!user) {
     navigate("/signin");
     return null;
   }
 
-  // ================= BOOKINGS =================
+  // ===============================
+  //           BOOKINGS
+  // ===============================
   const allBookings = JSON.parse(localStorage.getItem("bookings")) || [];
   const myBookings = allBookings.filter((b) => b.email === user.email);
 
   const today = new Date();
-  const upcoming = myBookings.filter((b) => new Date(b.date) >= today);
-  const past = myBookings.filter((b) => new Date(b.date) < today);
 
-  function cancelBooking(index) {
-    const updated = [...allBookings];
-    updated.splice(index, 1);
+  const upcoming = myBookings.filter(
+    (b) =>
+      b.status === "active" &&
+      new Date(b.date) >= today
+  );
+
+  const past = myBookings.filter(
+    (b) =>
+      b.status === "active" &&
+      new Date(b.date) < today
+  );
+
+  const cancelled = myBookings.filter((b) => b.status === "cancelled");
+
+  // ===== Cancel Booking (Fix) =====
+  function cancelBooking(bookingId) {
+    const updated = allBookings.map((b) =>
+      b.bookingId === bookingId ? { ...b, status: "cancelled" } : b
+    );
+
     localStorage.setItem("bookings", JSON.stringify(updated));
 
-    // Travel themed toast
-    toast.custom((t) => (
-      <div className="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-yellow-50 border p-3 rounded-xl shadow-md">
-        <span className="text-xl">🗑️</span>
-        <div>
-          <div className="font-semibold">Booking cancelled</div>
-          <div className="text-sm text-gray-600">We've removed the booking from your upcoming trips.</div>
-        </div>
-        <button
-          onClick={() => toast.dismiss(t.id)}
-          className="ml-auto text-sm text-blue-600 underline"
-        >
-          OK
-        </button>
-      </div>
-    ));
-
-    // small delay so toast is visible
-    setTimeout(() => window.location.reload(), 700);
+    toast.success("Booking cancelled");
+    setTimeout(() => window.location.reload(), 400);
   }
 
+  // ===== Remove Wishlist Item =====
   function removeWish(id) {
     removeFromWishlist(id);
     setWishlistState(getWishlist());
-
-    toast(
-      <div className="flex items-center gap-3">
-        <span className="text-xl">🏝️</span>
-        <div>
-          <div className="font-semibold">Removed from wishlist</div>
-          <div className="text-sm text-gray-600">We removed the item from your wishlist.</div>
-        </div>
-      </div>,
-      { duration: 2200 }
-    );
   }
 
-  // ================= TAB ANIMATION =================
   const tabAnimation = {
     initial: { opacity: 0, y: 40 },
     animate: { opacity: 1, y: 0 },
@@ -115,27 +103,29 @@ export default function Profile() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-20">
 
-      {/* ===================== TAB NAVIGATION ===================== */}
+      {/* =====================================
+                 TAB NAVIGATION
+      ====================================== */}
       <div className="relative flex items-center justify-center gap-8 sm:gap-12 border-b pb-3">
-
         {[
           { id: "profile", label: "Profile", icon: <User size={18} /> },
           { id: "upcoming", label: "Upcoming Trips", icon: <Clock size={18} /> },
           { id: "past", label: "Past Trips", icon: <CheckCircle size={18} /> },
+          { id: "cancelled", label: "Cancelled", icon: <Trash2 size={18} /> },
           { id: "wishlist", label: "Wishlist", icon: <Heart size={18} className="text-red-500" /> },
         ].map((t) => (
           <button
             key={t.id}
             ref={tabRefs[t.id]}
             onClick={() => setTab(t.id)}
-            className={`pb-2 flex items-center gap-2 text-base sm:text-lg font-semibold transition 
-              ${tab === t.id ? "text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
+            className={`pb-2 flex items-center gap-2 text-base sm:text-lg font-semibold ${
+              tab === t.id ? "text-blue-600" : "text-gray-500 hover:text-gray-700"
+            }`}
           >
             {t.icon} {t.label}
           </button>
         ))}
 
-        {/* Animated Underline */}
         <motion.div
           ref={underlineRef}
           layoutId="underline"
@@ -143,128 +133,74 @@ export default function Profile() {
         />
       </div>
 
-      {/* ===================== TABS ===================== */}
-
-      {/* -------- Profile Tab -------- */}
+      {/* =====================================
+                 PROFILE TAB
+      ====================================== */}
       {tab === "profile" && (
-        <motion.div key="profile" {...tabAnimation}
-          className="mt-10 bg-white rounded-3xl shadow-xl p-10"
-        >
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
+        <motion.div key="profile" {...tabAnimation} className="mt-10 bg-white rounded-3xl shadow-xl p-10">
+          <div className="flex flex-col md:flex-row items-center gap-10">
 
             {/* Avatar */}
-            <div className="relative group flex-shrink-0">
+            <div className="relative">
               <img
                 src={user.avatar}
                 className="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-blue-500 shadow-lg object-cover"
               />
-              <button className="absolute bottom-2 right-2 bg-blue-600 text-white p-2 rounded-full shadow hover:bg-blue-700">
+              <button className="absolute bottom-2 right-2 bg-blue-600 text-white p-2 rounded-full shadow">
                 <Edit3 size={18} />
               </button>
             </div>
 
-            {/* Name + Email */}
-            <div className="flex-1 text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">{user.name}</h2>
+            {/* User Info */}
+            <div className="text-center md:text-left flex-1">
+              <h2 className="text-4xl font-extrabold">{user.name}</h2>
               <p className="text-gray-600 text-lg">{user.email}</p>
 
-              {/* Home + Logout */}
-              <div className="mt-6 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+              <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <button
                   onClick={() => navigate("/")}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 shadow"
+                  className="px-6 py-2 bg-blue-600 text-white rounded-xl shadow"
                 >
                   Home
                 </button>
+
                 <button
                   onClick={() => {
-                    // travel themed logout toast
-                    toast.custom((t) => (
-                      <div className="flex items-center gap-3 bg-gradient-to-r from-yellow-50 to-blue-50 border p-3 rounded-xl shadow-md">
-                        <span className="text-xl">👋</span>
-                        <div>
-                          <div className="font-semibold">Logged out successfully</div>
-                          <div className="text-sm text-gray-600">See you soon — happy travels!</div>
-                        </div>
-                      </div>
-                    ));
-
+                    toast.success("Logged out");
                     signOut();
-                    setTimeout(() => navigate("/"), 600);
+                    setTimeout(() => navigate("/"), 300);
                   }}
-                  className="px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 shadow"
+                  className="px-6 py-2 bg-red-500 text-white rounded-xl shadow"
                 >
                   Logout
                 </button>
               </div>
             </div>
           </div>
-
-          {/* Quick Access */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <Edit3 className="text-blue-600" />
-              <span className="mt-2 text-sm font-semibold">Edit Profile</span>
-            </button>
-
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <span className="text-yellow-600 text-xl">🔐</span>
-              <span className="mt-2 text-sm font-semibold">Change Password</span>
-            </button>
-
-            <button
-              onClick={() => setTab("upcoming")}
-              className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition"
-            >
-              <Clock className="text-blue-500" />
-              <span className="mt-2 text-sm font-semibold">View Bookings</span>
-            </button>
-
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <span className="text-green-600 text-xl">💳</span>
-              <span className="mt-2 text-sm font-semibold">Payments</span>
-            </button>
-
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <span className="text-orange-600 text-xl">🧍</span>
-              <span className="mt-2 text-sm font-semibold">Saved Travellers</span>
-            </button>
-
-            <button
-              onClick={() => navigate("/contact")}
-              className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition"
-            >
-              <span className="text-orange-600 text-xl">📞</span>
-              <span className="mt-2 text-sm font-semibold">Support</span>
-            </button>
-
-          </div>
         </motion.div>
       )}
 
-      {/* -------- Upcoming Trips -------- */}
+      {/* =====================================
+             UPCOMING TRIPS
+      ====================================== */}
       {tab === "upcoming" && (
         <motion.div key="upcoming" {...tabAnimation} className="mt-10">
           <h3 className="text-2xl font-extrabold mb-4">Upcoming Trips</h3>
 
           {upcoming.length === 0 ? (
-            <p className="text-gray-500">
-              No upcoming trips.{" "}
-              <Link to="/trips" className="text-blue-600 underline">Book now →</Link>
-            </p>
+            <p className="text-gray-500">No upcoming trips.</p>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {upcoming.map((b, index) => (
-                <div key={index} className="bg-white rounded-3xl border shadow-lg p-6">
-                  <img src={b.image} className="w-full h-48 rounded-xl object-cover" />
+              {upcoming.map((b) => (
+                <div key={b.bookingId} className="bg-white rounded-3xl border shadow-lg p-6">
+                  <img src={b.image} className="w-full h-48 object-cover rounded-xl" />
                   <h4 className="text-xl font-bold mt-3">{b.title}</h4>
                   <p className="text-gray-600">{b.date}</p>
-                  <p className="mt-2 text-gray-700">{b.travellers} Travellers</p>
+                  <p className="text-gray-700 mt-2">{b.travellers} Travellers</p>
                   <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
 
                   <button
-                    onClick={() => cancelBooking(index)}
+                    onClick={() => cancelBooking(b.bookingId)}
                     className="mt-4 w-full py-2 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 flex items-center justify-center gap-2"
                   >
                     <Trash2 size={18} /> Cancel
@@ -276,21 +212,23 @@ export default function Profile() {
         </motion.div>
       )}
 
-      {/* -------- Past Trips -------- */}
+      {/* =====================================
+                  PAST TRIPS
+      ====================================== */}
       {tab === "past" && (
         <motion.div key="past" {...tabAnimation} className="mt-10">
           <h3 className="text-2xl font-extrabold mb-4">Past Trips</h3>
 
           {past.length === 0 ? (
-            <p className="text-gray-500">No past trips yet.</p>
+            <p className="text-gray-500">No past trips.</p>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {past.map((b, index) => (
-                <div key={index} className="bg-white rounded-3xl border shadow-lg p-6">
+              {past.map((b) => (
+                <div key={b.bookingId} className="bg-white rounded-3xl border shadow-lg p-6">
                   <img src={b.image} className="w-full h-48 rounded-xl object-cover" />
                   <h4 className="text-xl font-bold mt-3">{b.title}</h4>
                   <p className="text-gray-600">{b.date}</p>
-                  <p className="mt-2 text-gray-700">{b.travellers} Travellers</p>
+                  <p className="text-gray-700 mt-2">{b.travellers} Travellers</p>
                   <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
                 </div>
               ))}
@@ -299,7 +237,35 @@ export default function Profile() {
         </motion.div>
       )}
 
-      {/* -------- Wishlist -------- */}
+      {/* =====================================
+             CANCELLED TRIPS
+      ====================================== */}
+      {tab === "cancelled" && (
+        <motion.div key="cancelled" {...tabAnimation} className="mt-10">
+          <h3 className="text-2xl font-extrabold mb-4">Cancelled Trips</h3>
+
+          {cancelled.length === 0 ? (
+            <p className="text-gray-500">No cancelled trips.</p>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+              {cancelled.map((b) => (
+                <div key={b.bookingId} className="bg-red-50 border border-red-300 rounded-3xl p-6 shadow">
+                  <img src={b.image} className="w-full h-48 object-cover rounded-xl" />
+                  <h4 className="text-xl font-bold mt-3">{b.title}</h4>
+                  <p className="text-red-600 font-semibold mt-2">Cancelled</p>
+                  <p className="text-gray-600">{b.date}</p>
+                  <p className="text-gray-700 mt-2">{b.travellers} Travellers</p>
+                  <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </motion.div>
+      )}
+
+      {/* =====================================
+                  WISHLIST
+      ====================================== */}
       {tab === "wishlist" && (
         <motion.div key="wishlist" {...tabAnimation} className="mt-10">
           <h3 className="text-2xl font-extrabold mb-4">Wishlist</h3>
@@ -314,14 +280,7 @@ export default function Profile() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {wishlistState.map((item) => (
-                <Link
-                  key={item.id}
-                  to={
-                    item.tripId
-                      ? `/trip/${item.tripId}`
-                      : `/category/${item.categoryId}/${item.placeId}`
-                  }
-                >
+                <Link key={item.id} to={`/trip/${item.id}`}>
                   <div className="bg-white rounded-3xl border shadow-lg overflow-hidden hover:scale-[1.02] transition">
                     <img src={item.image} className="w-full h-48 object-cover" />
                     <div className="p-5">
@@ -329,11 +288,7 @@ export default function Profile() {
                       <p className="text-gray-600 text-sm">{item.location}</p>
 
                       <div className="flex justify-between items-center mt-4">
-                        {item.price ? (
-                          <p className="text-green-600 font-bold">₹{item.price}</p>
-                        ) : (
-                          <p className="text-blue-600 font-semibold">Explore →</p>
-                        )}
+                        <p className="text-green-600 font-bold">₹{item.price}</p>
 
                         <button
                           onClick={(e) => {
@@ -353,7 +308,6 @@ export default function Profile() {
           )}
         </motion.div>
       )}
-
     </div>
   );
 }

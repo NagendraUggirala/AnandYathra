@@ -20,36 +20,39 @@ export default function PaymentPage() {
 
   const travelCosts = {
     "no-flight": 0,
-    "flight": 5000 * persons,
-    "train": 1500 * persons,
-    "bus": 800 * persons,
+    flight: 5000 * persons,
+    train: 1500 * persons,
+    bus: 800 * persons,
   };
 
   const roomCosts = {
-    "standard": 0,
-    "deluxe": 1000 * persons,
-    "premium": 2500 * persons,
+    standard: 0,
+    deluxe: 1000 * persons,
+    premium: 2500 * persons,
   };
 
   const travelCharge = travelCosts[travelType] || 0;
   const roomCharge = roomCosts[roomType] || 0;
 
+  // ⭐ FIXED PAYMENT SAVE LOGIC (do not modify anything else)
   function handlePay() {
     const booking = {
-      id: Date.now(),
+      bookingId: Date.now(),        // ⭐ Unique booking ID
+      email: form.email,            // ⭐ Correct email
       title: trip.title,
       image: trip.image,
       date: form.date,
       travellers: persons,
-      email: form.email,
+      travelType,
+      roomType,
       total,
+      status: "active",             // ⭐ REQUIRED for cancel/past/upcoming
     };
 
     const existing = JSON.parse(localStorage.getItem("bookings")) || [];
     existing.push(booking);
     localStorage.setItem("bookings", JSON.stringify(existing));
 
-    // ✔ FIXED: send correct keys
     navigate("/success", {
       state: {
         trip,
@@ -71,19 +74,32 @@ export default function PaymentPage() {
       <div className="p-5 bg-white rounded-2xl shadow-md border">
         <p className="text-lg font-semibold mb-2">Trip: {trip.title}</p>
 
-        <p><strong>Name:</strong> {form.name}</p>
-        <p><strong>Email:</strong> {form.email}</p>
-        <p><strong>Date:</strong> {form.date}</p>
-        <p><strong>Persons:</strong> {persons}</p>
-        <p><strong>Travel Type:</strong> {travelType}</p>
-        <p><strong>Room Type:</strong> {roomType}</p>
+        <p>
+          <strong>Name:</strong> {form.name}
+        </p>
+        <p>
+          <strong>Email:</strong> {form.email}
+        </p>
+        <p>
+          <strong>Date:</strong> {form.date}
+        </p>
+        <p>
+          <strong>Persons:</strong> {persons}
+        </p>
+        <p>
+          <strong>Travel Type:</strong> {travelType}
+        </p>
+        <p>
+          <strong>Room Type:</strong> {roomType}
+        </p>
       </div>
 
       <div className="mt-6 p-6 bg-gray-50 rounded-2xl border shadow-sm">
         <h3 className="text-xl font-bold mb-3">Price Breakdown</h3>
 
         <p className="text-lg">
-          <strong>Base Price × Persons:</strong> ₹{basePrice.toLocaleString()}
+          <strong>Base Price × Persons:</strong>{" "}
+          ₹{basePrice.toLocaleString()}
         </p>
 
         <p className="text-lg mt-2">
