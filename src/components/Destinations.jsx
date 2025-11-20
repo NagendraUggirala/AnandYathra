@@ -1,84 +1,108 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import categories from "../data/categories.json";
+import destinations from "../data/destinations.json";
 import { Heart } from "lucide-react";
-import { addToWishlist, getWishlist } from "../utils/wishlist";
+import toast from "react-hot-toast";
+
+import { getWishlist, addToWishlist, removeFromWishlist } from "../utils/wishlist";
 
 export default function Destinations() {
+  const [wishlistIds, setWishlistIds] = useState([]);
+
+  // Load wishlist
+  useEffect(() => {
+    const list = getWishlist().map((item) => String(item.id));
+    setWishlistIds(list);
+
+    const updateHandler = () => {
+      setWishlistIds(getWishlist().map((item) => String(item.id)));
+    };
+
+    window.addEventListener("wishlistUpdated", updateHandler);
+    return () => window.removeEventListener("wishlistUpdated", updateHandler);
+  }, []);
+
+  const toggleWishlist = (category) => {
+    const id = String(category.id);
+
+    if (wishlistIds.includes(id)) {
+      removeFromWishlist(id);
+      toast.error("Removed from Wishlist 💔");
+    } else {
+      addToWishlist({
+        id: id,
+        title: category.title,
+        image: category.image,
+        location: `${category.title} Destinations`,
+        price: null
+      });
+      toast.success("Added to Wishlist ❤️");
+    }
+  };
+
   return (
-    <section className="max-w-7xl mx-auto px-5 pt-32 mb-16">
+    <div className="max-w-7xl mx-auto px-5 pt-28 pb-20">
 
-      {/* Heading */}
-      <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent drop-shadow">
-          Top Destinations
-        </h2>
-        <p className="text-gray-600 mt-2 text-sm sm:text-base">
-          Explore India’s most beautiful and curated travel spots.
-        </p>
-      </div>
+      <h2 className="text-4xl font-extrabold mb-10 text-center bg-gradient-to-r 
+                     from-blue-500 to-yellow-500 bg-clip-text text-transparent">
+        Explore Destinations
+      </h2>
 
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {categories.map((place) => (
-          <Link
-            key={place.id}
-            to={`/category/${place.id}`}
-            className="relative block"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer 
-                         hover:shadow-2xl transition-all border border-gray-200 relative"
-            >
-              {/* Image */}
-              <div className="h-44 sm:h-52 md:h-56 relative">
-                <img
-                  src={place.img}
-                  alt={place.title}
-                  className="w-full h-full object-cover"
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+        {Object.values(destinations).map((cat) => {
+          const inWish = wishlistIds.includes(String(cat.id));
+
+          return (
+            <div key={cat.id} className="relative group">
+
+              {/* Wishlist Button */}
+              <button
+                onClick={() => toggleWishlist(cat)}
+                className="absolute top-3 right-3 bg-white p-2 rounded-full shadow z-20 hover:scale-110 transition"
+              >
+                <Heart
+                  className={`w-6 h-6 ${
+                    inWish ? "text-red-500 fill-red-500" : "text-gray-600"
+                  }`}
                 />
+              </button>
 
-                {/* Wishlist Button */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
+              <Link to={`/category/${cat.id}`}>
+                <div className="bg-white rounded-2xl shadow-lg border overflow-hidden hover:shadow-2xl transition cursor-pointer">
 
-                    // Destinations page does NOT have categoryId or placeId info
-                    addToWishlist({
-                      id: String(place.id),
-                      image: place.img,
-                      title: place.title,
-                      location: place.desc || "Unknown",
-                      price: place.price || 0,
-                      categoryId: null,  // cannot know yet
-                      placeId: null      // cannot know yet
-                    });
-                  }}
-                  className="absolute top-3 right-3 bg-white p-2 rounded-full shadow z-20 hover:scale-110 transition"
-                >
-                  <Heart className="text-red-500" />
-                </button>
+                  {/* Category Image */}
+                  <img
+                    src={cat.image}
+                    alt={cat.title}
+                    className="h-52 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/50"></div>
-              </div>
+                  {/* Body */}
+                  <div className="p-5">
+                    <h3 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition">
+                      {cat.title}
+                    </h3>
 
-              {/* Text */}
-              <div className="p-5">
-                <h3 className="text-xl font-bold text-yellow-600">
-                  {place.title}
-                </h3>
-                <p className="text-gray-600 mt-2 text-sm">{place.desc}</p>
-              </div>
-            </motion.div>
-          </Link>
-        ))}
+                    <p className="text-gray-600 mt-2">
+                      {cat.destinations.length} Places
+                    </p>
+
+                    <button className="mt-5 w-full py-2 bg-gradient-to-r 
+                                       from-blue-600 to-yellow-500 text-white rounded-xl font-semibold shadow 
+                                       hover:from-blue-700 hover:to-yellow-600 transition">
+                      View Places
+                    </button>
+                  </div>
+
+                </div>
+              </Link>
+
+            </div>
+          );
+        })}
+
       </div>
-    </section>
+    </div>
   );
 }

@@ -1,29 +1,28 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 export default function SuccessPage() {
   const { state } = useLocation();
 
-  // Supports BOTH package + trip bookings
-  if (!state || !state.data || !state.form) {
+  // Correct state validation
+  if (!state || !state.trip || !state.form || state.total === undefined) {
     return (
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-32 p-8 text-center text-xl">
           No booking data found.
         </div>
-        
       </>
     );
   }
 
-  const { data, form, total } = state;
+  const { trip, form, total, persons } = state;
 
   return (
     <>
       <Header />
+
       <div className="max-w-3xl mx-auto pt-32 p-8 text-center">
 
         {/* Success Icon */}
@@ -46,22 +45,20 @@ export default function SuccessPage() {
           Booking Confirmed!
         </h2>
 
-        {/* Package/Trip Name */}
+        {/* Trip Title */}
         <p className="text-lg mt-3 text-gray-700 font-medium">
-          {data.title}
+          {trip.title}
         </p>
 
-        {/* Location (only trips have location) */}
-        {data.location && (
-          <p className="text-gray-600 mt-1">
-            {data.location}
-          </p>
+        {/* Destination (optional) */}
+        {trip.destination && (
+          <p className="text-gray-600 mt-1">{trip.destination}</p>
         )}
 
         {/* Traveller Info */}
         <p className="mt-4 text-gray-700">
           Traveller: <span className="font-semibold">{form.name}</span>  
-          &nbsp;•&nbsp; {form.travellers} pax
+          &nbsp;•&nbsp; {persons} pax
         </p>
 
         {/* Total Amount */}
@@ -73,15 +70,13 @@ export default function SuccessPage() {
         <Link
           to="/"
           className="mt-8 inline-block px-6 py-3 rounded-xl 
-                     bg-gradient-to-r from-skyblue to-blue-600 
+                     bg-gradient-to-r from-blue-500 to-blue-700
                      text-white font-semibold shadow-lg
                      hover:scale-[1.05] hover:shadow-xl transition-all"
         >
           Back to Home
         </Link>
       </div>
-
-      
     </>
   );
 }
