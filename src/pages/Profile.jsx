@@ -113,20 +113,27 @@ export default function Profile() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-20">
 
-      {/* ========= TAB NAVIGATION ========= */}
-      <div className="relative flex items-center justify-center gap-6 sm:gap-12 border-b pb-3 overflow-x-auto">
+      {/* ========= TAB NAVIGATION (FIXED SCROLL) ========= */}
+      <div
+        className="relative flex items-center gap-6 sm:gap-12 border-b pb-3
+        overflow-x-auto scrollbar-hide px-4 snap-x snap-mandatory"
+      >
         {[
           { id: "profile", label: "Profile", icon: <User size={18} /> },
           { id: "upcoming", label: "Upcoming", icon: <Clock size={18} /> },
           { id: "past", label: "Past Trips", icon: <CheckCircle size={18} /> },
           { id: "cancelled", label: "Cancelled", icon: <Trash2 size={18} /> },
-          { id: "wishlist", label: "Wishlist", icon: <Heart size={18} className="text-red-500" /> },
+          {
+            id: "wishlist",
+            label: "Wishlist",
+            icon: <Heart size={18} className="text-red-500" />,
+          },
         ].map((t) => (
           <button
             key={t.id}
             ref={tabRefs[t.id]}
             onClick={() => setTab(t.id)}
-            className={`pb-2 flex whitespace-nowrap items-center gap-2 text-base sm:text-lg font-semibold ${
+            className={`pb-2 flex whitespace-nowrap items-center snap-start gap-2 text-base sm:text-lg font-semibold ${
               tab === t.id ? "text-blue-600" : "text-gray-500 hover:text-gray-700"
             }`}
           >
@@ -143,10 +150,12 @@ export default function Profile() {
 
       {/* ========= PROFILE TAB ========= */}
       {tab === "profile" && (
-        <motion.div key="profile" {...tabAnimation} className="mt-10 bg-white rounded-3xl shadow-xl p-10">
-
+        <motion.div
+          key="profile"
+          {...tabAnimation}
+          className="mt-10 bg-white rounded-3xl shadow-xl p-10"
+        >
           <div className="flex flex-col md:flex-row items-center gap-10">
-
             {/* Avatar */}
             <div className="relative">
               <img
@@ -187,8 +196,6 @@ export default function Profile() {
 
           {/* ========= QUICK ACCESS BUTTONS ========= */}
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
-
-            {/* Reusable button helper */}
             {[
               {
                 label: "Edit",
@@ -206,7 +213,7 @@ export default function Profile() {
                 label: "Bookings",
                 icon: <CalendarCheck size={20} />,
                 color: "green",
-                link: "/upcoming-trips",
+                link: "#",
               },
               {
                 label: "Payments",
@@ -232,15 +239,13 @@ export default function Profile() {
                 key={i}
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => btn.link ? navigate(btn.link) : btn.action()}
-                className={`py-4 rounded-2xl shadow font-semibold text-sm flex flex-col items-center justify-center gap-2
-                  bg-${btn.color}-100 text-${btn.color}-700 hover:bg-${btn.color}-200`}
+                onClick={() => (btn.link ? navigate(btn.link) : btn.action())}
+                className={`py-4 rounded-2xl shadow font-semibold text-sm flex flex-col items-center justify-center gap-2 bg-${btn.color}-100 text-${btn.color}-700 hover:bg-${btn.color}-200`}
               >
                 {btn.icon}
                 {btn.label}
               </motion.button>
             ))}
-
           </div>
         </motion.div>
       )}
@@ -255,12 +260,22 @@ export default function Profile() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {upcoming.map((b) => (
-                <div key={b.bookingId} className="bg-white rounded-3xl border shadow-lg p-6">
-                  <img src={b.image} className="w-full h-48 object-cover rounded-xl" />
+                <div
+                  key={b.bookingId}
+                  className="bg-white rounded-3xl border shadow-lg p-6"
+                >
+                  <img
+                    src={b.image}
+                    className="w-full h-48 object-cover rounded-xl"
+                  />
                   <h4 className="text-xl font-bold mt-3">{b.title}</h4>
                   <p className="text-gray-600">{b.date}</p>
-                  <p className="text-gray-700 mt-2">{b.travellers} Travellers</p>
-                  <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
+                  <p className="text-gray-700 mt-2">
+                    {b.travellers} Travellers
+                  </p>
+                  <p className="text-green-600 font-bold mt-2">
+                    ₹{b.total.toLocaleString()}
+                  </p>
 
                   <button
                     onClick={() => cancelBooking(b.bookingId)}
@@ -285,12 +300,22 @@ export default function Profile() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {past.map((b) => (
-                <div key={b.bookingId} className="bg-white rounded-3xl border shadow-lg p-6">
-                  <img src={b.image} className="w-full h-48 rounded-xl object-cover" />
+                <div
+                  key={b.bookingId}
+                  className="bg-white rounded-3xl border shadow-lg p-6"
+                >
+                  <img
+                    src={b.image}
+                    className="w-full h-48 rounded-xl object-cover"
+                  />
                   <h4 className="text-xl font-bold mt-3">{b.title}</h4>
                   <p className="text-gray-600">{b.date}</p>
-                  <p className="text-gray-700 mt-2">{b.travellers} Travellers</p>
-                  <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
+                  <p className="text-gray-700 mt-2">
+                    {b.travellers} Travellers
+                  </p>
+                  <p className="text-green-600 font-bold mt-2">
+                    ₹{b.total.toLocaleString()}
+                  </p>
                 </div>
               ))}
             </div>
@@ -308,13 +333,23 @@ export default function Profile() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {cancelled.map((b) => (
-                <div key={b.bookingId} className="bg-red-50 border border-red-300 rounded-3xl p-6 shadow">
-                  <img src={b.image} className="w-full h-48 object-cover rounded-xl" />
+                <div
+                  key={b.bookingId}
+                  className="bg-red-50 border border-red-300 rounded-3xl p-6 shadow"
+                >
+                  <img
+                    src={b.image}
+                    className="w-full h-48 object-cover rounded-xl"
+                  />
                   <h4 className="text-xl font-bold mt-3">{b.title}</h4>
                   <p className="text-red-600 font-semibold mt-2">Cancelled</p>
                   <p className="text-gray-600">{b.date}</p>
-                  <p className="text-gray-700 mt-2">{b.travellers} Travellers</p>
-                  <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
+                  <p className="text-gray-700 mt-2">
+                    {b.travellers} Travellers
+                  </p>
+                  <p className="text-green-600 font-bold mt-2">
+                    ₹{b.total.toLocaleString()}
+                  </p>
                 </div>
               ))}
             </div>
@@ -330,7 +365,10 @@ export default function Profile() {
           {wishlistState.length === 0 ? (
             <div className="text-gray-500 bg-white p-10 text-center rounded-3xl border shadow-inner">
               No wishlist items yet.
-              <Link className="text-blue-600 underline ml-1" to="/destinations">
+              <Link
+                className="text-blue-600 underline ml-1"
+                to="/destinations"
+              >
                 Explore →
               </Link>
             </div>
@@ -339,13 +377,18 @@ export default function Profile() {
               {wishlistState.map((item) => (
                 <Link key={item.id} to={`/trip/${item.id}`}>
                   <div className="bg-white rounded-3xl border shadow-lg overflow-hidden hover:scale-[1.02] transition">
-                    <img src={item.image} className="w-full h-48 object-cover" />
+                    <img
+                      src={item.image}
+                      className="w-full h-48 object-cover"
+                    />
                     <div className="p-5">
                       <h3 className="font-bold text-xl">{item.title}</h3>
                       <p className="text-gray-600 text-sm">{item.location}</p>
 
                       <div className="flex justify-between items-center mt-4">
-                        <p className="text-green-600 font-bold">₹{item.price}</p>
+                        <p className="text-green-600 font-bold">
+                          ₹{item.price}
+                        </p>
 
                         <button
                           onClick={(e) => {
