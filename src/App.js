@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-
+ 
 import Layout from "./components/Layout";
-
+ 
 // Pages
 import Home from "./pages/Home";
 import Trips from "./pages/Trips";
@@ -15,21 +15,21 @@ import Profile from "./pages/Profile";
 import MyBookings from "./pages/MyBookings";
 import About from "./pages/About";      // ✅ Added
 import Contact from "./pages/Contact";  // ✅ Added
-
+ 
 // Auth
 import SignIn from "./components/SignIn";
 import SignUp from "./components/Signup";
-
+ 
 // Destinations
 import Destinations from "./components/Destinations";
 import CategoryPlaces from "./components/CategoryPlaces";
 import PlaceDetails from "./components/PlaceDetails";
-
+ 
 function App() {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-
+ 
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -38,10 +38,10 @@ function App() {
           <Route path="/booking/:id" element={<BookingForm />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/success" element={<SuccessPage />} />
-
+ 
           <Route path="/profile" element={<Profile />} />
           <Route path="/my-bookings" element={<MyBookings />} />
-
+ 
           {/* Destinations */}
           <Route path="/destinations" element={<Destinations />} />
           <Route path="/category/:categoryId" element={<CategoryPlaces />} />
@@ -49,11 +49,11 @@ function App() {
             path="/category/:categoryId/:placeId"
             element={<PlaceDetails />}
           />
-
+ 
           {/* Auth */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-
+ 
           {/* NEW PAGES */}
           <Route path="/about" element={<About />} />       {/* ✅ Added */}
           <Route path="/contact" element={<Contact />} />   {/* ✅ Added */}
@@ -62,5 +62,5 @@ function App() {
     </>
   );
 }
-
+ 
 export default App;
