@@ -11,6 +11,12 @@ import {
   Clock,
   CheckCircle,
   User,
+  Pencil,
+  KeyRound,
+  CalendarCheck,
+  CreditCard,
+  UsersRound,
+  LifeBuoy,
 } from "lucide-react";
 
 import { getWishlist, removeFromWishlist } from "../utils/wishlist";
@@ -22,7 +28,6 @@ export default function Profile() {
   const [tab, setTab] = useState("profile");
   const [wishlistState, setWishlistState] = useState([]);
 
-  // ---- Refs for moving underline ----
   const tabRefs = {
     profile: useRef(null),
     upcoming: useRef(null),
@@ -43,7 +48,7 @@ export default function Profile() {
     }
   }, [tab]);
 
-  // Load wishlist on first render
+  // Load wishlist
   useEffect(() => {
     setWishlistState(getWishlist());
   }, []);
@@ -54,9 +59,7 @@ export default function Profile() {
     return null;
   }
 
-  // ===============================
-  //           BOOKINGS
-  // ===============================
+  // Bookings
   const allBookings = JSON.parse(localStorage.getItem("bookings")) || [];
   const myBookings = allBookings.filter((b) => b.email === user.email);
 
@@ -72,7 +75,6 @@ export default function Profile() {
 
   const cancelled = myBookings.filter((b) => b.status === "cancelled");
 
-  // ===== Cancel Booking =====
   function cancelBooking(bookingId) {
     const updated = allBookings.map((b) =>
       b.bookingId === bookingId ? { ...b, status: "cancelled" } : b
@@ -84,20 +86,17 @@ export default function Profile() {
     setTimeout(() => window.location.reload(), 400);
   }
 
-  // ===== Wishlist Remove WITH Popup =====
   function removeWish(id) {
     removeFromWishlist(id);
     setWishlistState(getWishlist());
 
     toast.custom(
-      (t) => (
+      () => (
         <div className="flex items-center gap-3 bg-white border shadow-lg rounded-xl px-4 py-3">
           <span className="text-xl">💔</span>
           <div>
             <p className="font-bold text-gray-800">Removed from Wishlist</p>
-            <p className="text-gray-600 text-sm">
-              Item has been removed successfully.
-            </p>
+            <p className="text-gray-600 text-sm">Item has been removed.</p>
           </div>
         </div>
       ),
@@ -105,7 +104,6 @@ export default function Profile() {
     );
   }
 
-  // Animation 
   const tabAnimation = {
     initial: { opacity: 0, y: 40 },
     animate: { opacity: 1, y: 0 },
@@ -113,15 +111,13 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-20">
 
-      {/* =====================================
-                 TAB NAVIGATION
-      ====================================== */}
-      <div className="relative flex items-center justify-center gap-8 sm:gap-12 border-b pb-3">
+      {/* ========= TAB NAVIGATION ========= */}
+      <div className="relative flex items-center justify-center gap-6 sm:gap-12 border-b pb-3 overflow-x-auto">
         {[
           { id: "profile", label: "Profile", icon: <User size={18} /> },
-          { id: "upcoming", label: "Upcoming Trips", icon: <Clock size={18} /> },
+          { id: "upcoming", label: "Upcoming", icon: <Clock size={18} /> },
           { id: "past", label: "Past Trips", icon: <CheckCircle size={18} /> },
           { id: "cancelled", label: "Cancelled", icon: <Trash2 size={18} /> },
           { id: "wishlist", label: "Wishlist", icon: <Heart size={18} className="text-red-500" /> },
@@ -130,11 +126,11 @@ export default function Profile() {
             key={t.id}
             ref={tabRefs[t.id]}
             onClick={() => setTab(t.id)}
-            className={`pb-2 flex items-center gap-2 text-base sm:text-lg font-semibold ${
+            className={`pb-2 flex whitespace-nowrap items-center gap-2 text-base sm:text-lg font-semibold ${
               tab === t.id ? "text-blue-600" : "text-gray-500 hover:text-gray-700"
             }`}
           >
-            {t.icon} <span className="hidden xs:inline">{t.label}</span>
+            {t.icon} {t.label}
           </button>
         ))}
 
@@ -145,18 +141,17 @@ export default function Profile() {
         />
       </div>
 
-      {/* =====================================
-                 PROFILE TAB
-      ====================================== */}
+      {/* ========= PROFILE TAB ========= */}
       {tab === "profile" && (
         <motion.div key="profile" {...tabAnimation} className="mt-10 bg-white rounded-3xl shadow-xl p-10">
+
           <div className="flex flex-col md:flex-row items-center gap-10">
 
             {/* Avatar */}
             <div className="relative">
               <img
                 src={user.avatar}
-                className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full border-4 border-blue-500 shadow-lg object-cover"
+                className="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-blue-500 shadow-lg object-cover"
               />
               <button className="absolute bottom-2 right-2 bg-blue-600 text-white p-2 rounded-full shadow">
                 <Edit3 size={18} />
@@ -189,15 +184,71 @@ export default function Profile() {
               </div>
             </div>
           </div>
+
+          {/* ========= QUICK ACCESS BUTTONS ========= */}
+          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
+
+            {/* Reusable button helper */}
+            {[
+              {
+                label: "Edit",
+                icon: <Pencil size={20} />,
+                color: "blue",
+                link: "#",
+              },
+              {
+                label: "Password",
+                icon: <KeyRound size={20} />,
+                color: "purple",
+                link: "#",
+              },
+              {
+                label: "Bookings",
+                icon: <CalendarCheck size={20} />,
+                color: "green",
+                link: "/upcoming-trips",
+              },
+              {
+                label: "Payments",
+                icon: <CreditCard size={20} />,
+                color: "yellow",
+                link: "#",
+              },
+              {
+                label: "Travellers",
+                icon: <UsersRound size={20} />,
+                color: "orange",
+                action: () =>
+                  toast("Saved Travellers coming soon!", { icon: "🚀" }),
+              },
+              {
+                label: "Support",
+                icon: <LifeBuoy size={20} />,
+                color: "red",
+                link: "/contact",
+              },
+            ].map((btn, i) => (
+              <motion.button
+                key={i}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => btn.link ? navigate(btn.link) : btn.action()}
+                className={`py-4 rounded-2xl shadow font-semibold text-sm flex flex-col items-center justify-center gap-2
+                  bg-${btn.color}-100 text-${btn.color}-700 hover:bg-${btn.color}-200`}
+              >
+                {btn.icon}
+                {btn.label}
+              </motion.button>
+            ))}
+
+          </div>
         </motion.div>
       )}
 
-      {/* =====================================
-             UPCOMING TRIPS
-      ====================================== */}
+      {/* ========= UPCOMING TRIPS ========= */}
       {tab === "upcoming" && (
-        <motion.div key="upcoming" {...tabAnimation} className="mt-6 sm:mt-8 md:mt-10">
-          <h3 className="text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Upcoming Trips</h3>
+        <motion.div key="upcoming" {...tabAnimation} className="mt-10">
+          <h3 className="text-2xl font-extrabold mb-4">Upcoming Trips</h3>
 
           {upcoming.length === 0 ? (
             <p className="text-gray-500">No upcoming trips.</p>
@@ -215,7 +266,7 @@ export default function Profile() {
                     onClick={() => cancelBooking(b.bookingId)}
                     className="mt-4 w-full py-2 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 flex items-center justify-center gap-2"
                   >
-                    <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" /> Cancel
+                    <Trash2 size={18} /> Cancel
                   </button>
                 </div>
               ))}
@@ -224,12 +275,10 @@ export default function Profile() {
         </motion.div>
       )}
 
-      {/* =====================================
-                  PAST TRIPS
-      ====================================== */}
+      {/* ========= PAST TRIPS ========= */}
       {tab === "past" && (
-        <motion.div key="past" {...tabAnimation} className="mt-6 sm:mt-8 md:mt-10">
-          <h3 className="text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Past Trips</h3>
+        <motion.div key="past" {...tabAnimation} className="mt-10">
+          <h3 className="text-2xl font-extrabold mb-4">Past Trips</h3>
 
           {past.length === 0 ? (
             <p className="text-gray-500">No past trips.</p>
@@ -249,9 +298,7 @@ export default function Profile() {
         </motion.div>
       )}
 
-      {/* =====================================
-             CANCELLED TRIPS
-      ====================================== */}
+      {/* ========= CANCELLED TRIPS ========= */}
       {tab === "cancelled" && (
         <motion.div key="cancelled" {...tabAnimation} className="mt-10">
           <h3 className="text-2xl font-extrabold mb-4">Cancelled Trips</h3>
@@ -275,22 +322,20 @@ export default function Profile() {
         </motion.div>
       )}
 
-      {/* =====================================
-                  WISHLIST
-      ====================================== */}
+      {/* ========= WISHLIST ========= */}
       {tab === "wishlist" && (
-        <motion.div key="wishlist" {...tabAnimation} className="mt-6 sm:mt-8 md:mt-10">
-          <h3 className="text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Wishlist</h3>
+        <motion.div key="wishlist" {...tabAnimation} className="mt-10">
+          <h3 className="text-2xl font-extrabold mb-4">Wishlist</h3>
 
           {wishlistState.length === 0 ? (
-            <div className="text-gray-500 bg-white p-6 sm:p-8 md:p-10 text-center rounded-2xl sm:rounded-3xl border shadow-inner text-sm sm:text-base">
+            <div className="text-gray-500 bg-white p-10 text-center rounded-3xl border shadow-inner">
               No wishlist items yet.
               <Link className="text-blue-600 underline ml-1" to="/destinations">
                 Explore →
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {wishlistState.map((item) => (
                 <Link key={item.id} to={`/trip/${item.id}`}>
                   <div className="bg-white rounded-3xl border shadow-lg overflow-hidden hover:scale-[1.02] transition">
@@ -307,7 +352,7 @@ export default function Profile() {
                             e.preventDefault();
                             removeWish(item.id);
                           }}
-                          className="text-red-500 font-semibold hover:underline text-sm sm:text-base"
+                          className="text-red-500 font-semibold hover:underline"
                         >
                           Remove
                         </button>
