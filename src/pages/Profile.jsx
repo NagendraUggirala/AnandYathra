@@ -113,10 +113,10 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-20">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20">
 
       {/* ===================== TAB NAVIGATION ===================== */}
-      <div className="relative flex items-center justify-center gap-8 sm:gap-12 border-b pb-3">
+      <div className="relative flex items-center justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-12 border-b pb-2 sm:pb-3 overflow-x-auto scrollbar-hide">
 
         {[
           { id: "profile", label: "Profile", icon: <User size={18} /> },
@@ -128,10 +128,9 @@ export default function Profile() {
             key={t.id}
             ref={tabRefs[t.id]}
             onClick={() => setTab(t.id)}
-            className={`pb-2 flex items-center gap-2 text-base sm:text-lg font-semibold transition 
-              ${tab === t.id ? "text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
+            className={`pb-2 flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base md:text-lg font-semibold transition whitespace-nowrap flex-shrink-0 ${tab === t.id ? "text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
           >
-            {t.icon} {t.label}
+            {t.icon} <span className="hidden xs:inline">{t.label}</span>
           </button>
         ))}
 
@@ -148,31 +147,31 @@ export default function Profile() {
       {/* -------- Profile Tab -------- */}
       {tab === "profile" && (
         <motion.div key="profile" {...tabAnimation}
-          className="mt-10 bg-white rounded-3xl shadow-xl p-10"
+          className="mt-6 sm:mt-8 md:mt-10 bg-white rounded-2xl sm:rounded-3xl shadow-xl p-5 sm:p-8 md:p-10"
         >
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8 md:gap-10">
 
             {/* Avatar */}
             <div className="relative group flex-shrink-0">
               <img
                 src={user.avatar}
-                className="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-blue-500 shadow-lg object-cover"
+                className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full border-4 border-blue-500 shadow-lg object-cover"
               />
-              <button className="absolute bottom-2 right-2 bg-blue-600 text-white p-2 rounded-full shadow hover:bg-blue-700">
-                <Edit3 size={18} />
+              <button className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 bg-blue-600 text-white p-1.5 sm:p-2 rounded-full shadow hover:bg-blue-700">
+                <Edit3 size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
             </div>
 
             {/* Name + Email */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">{user.name}</h2>
-              <p className="text-gray-600 text-lg">{user.email}</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900">{user.name}</h2>
+              <p className="text-gray-600 text-base sm:text-lg mt-1">{user.email}</p>
 
               {/* Home + Logout */}
-              <div className="mt-6 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+              <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4">
                 <button
                   onClick={() => navigate("/")}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 shadow"
+                  className="px-5 sm:px-6 py-2 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 shadow text-sm sm:text-base"
                 >
                   Home
                 </button>
@@ -192,7 +191,7 @@ export default function Profile() {
                     signOut();
                     setTimeout(() => navigate("/"), 600);
                   }}
-                  className="px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 shadow"
+                  className="px-5 sm:px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 shadow text-sm sm:text-base"
                 >
                   Logout
                 </button>
@@ -201,42 +200,42 @@ export default function Profile() {
           </div>
 
           {/* Quick Access */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+          <div className="mt-8 sm:mt-10 md:mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
 
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <Edit3 className="text-blue-600" />
-              <span className="mt-2 text-sm font-semibold">Edit Profile</span>
+            <button className="flex flex-col items-center p-3 sm:p-4 bg-gray-50 rounded-xl sm:rounded-2xl shadow border hover:shadow-lg transition">
+              <Edit3 className="text-blue-600 w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="mt-2 text-xs sm:text-sm font-semibold text-center">Edit Profile</span>
             </button>
 
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <span className="text-yellow-600 text-xl">🔐</span>
-              <span className="mt-2 text-sm font-semibold">Change Password</span>
+            <button className="flex flex-col items-center p-3 sm:p-4 bg-gray-50 rounded-xl sm:rounded-2xl shadow border hover:shadow-lg transition">
+              <span className="text-yellow-600 text-lg sm:text-xl">🔐</span>
+              <span className="mt-2 text-xs sm:text-sm font-semibold text-center">Change Password</span>
             </button>
 
             <button
               onClick={() => setTab("upcoming")}
-              className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition"
+              className="flex flex-col items-center p-3 sm:p-4 bg-gray-50 rounded-xl sm:rounded-2xl shadow border hover:shadow-lg transition"
             >
-              <Clock className="text-blue-500" />
-              <span className="mt-2 text-sm font-semibold">View Bookings</span>
+              <Clock className="text-blue-500 w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="mt-2 text-xs sm:text-sm font-semibold text-center">View Bookings</span>
             </button>
 
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <span className="text-green-600 text-xl">💳</span>
-              <span className="mt-2 text-sm font-semibold">Payments</span>
+            <button className="flex flex-col items-center p-3 sm:p-4 bg-gray-50 rounded-xl sm:rounded-2xl shadow border hover:shadow-lg transition">
+              <span className="text-green-600 text-lg sm:text-xl">💳</span>
+              <span className="mt-2 text-xs sm:text-sm font-semibold text-center">Payments</span>
             </button>
 
-            <button className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition">
-              <span className="text-orange-600 text-xl">🧍</span>
-              <span className="mt-2 text-sm font-semibold">Saved Travellers</span>
+            <button className="flex flex-col items-center p-3 sm:p-4 bg-gray-50 rounded-xl sm:rounded-2xl shadow border hover:shadow-lg transition">
+              <span className="text-orange-600 text-lg sm:text-xl">🧍</span>
+              <span className="mt-2 text-xs sm:text-sm font-semibold text-center">Saved Travellers</span>
             </button>
 
             <button
               onClick={() => navigate("/contact")}
-              className="flex flex-col items-center p-4 bg-gray-50 rounded-2xl shadow border hover:shadow-lg transition"
+              className="flex flex-col items-center p-3 sm:p-4 bg-gray-50 rounded-xl sm:rounded-2xl shadow border hover:shadow-lg transition"
             >
-              <span className="text-orange-600 text-xl">📞</span>
-              <span className="mt-2 text-sm font-semibold">Support</span>
+              <span className="text-orange-600 text-lg sm:text-xl">📞</span>
+              <span className="mt-2 text-xs sm:text-sm font-semibold text-center">Support</span>
             </button>
 
           </div>
@@ -245,29 +244,29 @@ export default function Profile() {
 
       {/* -------- Upcoming Trips -------- */}
       {tab === "upcoming" && (
-        <motion.div key="upcoming" {...tabAnimation} className="mt-10">
-          <h3 className="text-2xl font-extrabold mb-4">Upcoming Trips</h3>
+        <motion.div key="upcoming" {...tabAnimation} className="mt-6 sm:mt-8 md:mt-10">
+          <h3 className="text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Upcoming Trips</h3>
 
           {upcoming.length === 0 ? (
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-sm sm:text-base">
               No upcoming trips.{" "}
               <Link to="/trips" className="text-blue-600 underline">Book now →</Link>
             </p>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10">
               {upcoming.map((b, index) => (
-                <div key={index} className="bg-white rounded-3xl border shadow-lg p-6">
-                  <img src={b.image} className="w-full h-48 rounded-xl object-cover" />
-                  <h4 className="text-xl font-bold mt-3">{b.title}</h4>
-                  <p className="text-gray-600">{b.date}</p>
-                  <p className="mt-2 text-gray-700">{b.travellers} Travellers</p>
-                  <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
+                <div key={index} className="bg-white rounded-2xl sm:rounded-3xl border shadow-lg p-4 sm:p-5 md:p-6">
+                  <img src={b.image} className="w-full h-40 sm:h-48 rounded-xl object-cover" />
+                  <h4 className="text-lg sm:text-xl font-bold mt-2 sm:mt-3">{b.title}</h4>
+                  <p className="text-gray-600 text-sm sm:text-base">{b.date}</p>
+                  <p className="mt-1.5 sm:mt-2 text-gray-700 text-sm sm:text-base">{b.travellers} Travellers</p>
+                  <p className="text-green-600 font-bold mt-1.5 sm:mt-2 text-base sm:text-lg">₹{b.total.toLocaleString()}</p>
 
                   <button
                     onClick={() => cancelBooking(index)}
-                    className="mt-4 w-full py-2 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 flex items-center justify-center gap-2"
+                    className="mt-3 sm:mt-4 w-full py-2 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 flex items-center justify-center gap-2 text-sm sm:text-base"
                   >
-                    <Trash2 size={18} /> Cancel
+                    <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" /> Cancel
                   </button>
                 </div>
               ))}
@@ -278,20 +277,20 @@ export default function Profile() {
 
       {/* -------- Past Trips -------- */}
       {tab === "past" && (
-        <motion.div key="past" {...tabAnimation} className="mt-10">
-          <h3 className="text-2xl font-extrabold mb-4">Past Trips</h3>
+        <motion.div key="past" {...tabAnimation} className="mt-6 sm:mt-8 md:mt-10">
+          <h3 className="text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Past Trips</h3>
 
           {past.length === 0 ? (
-            <p className="text-gray-500">No past trips yet.</p>
+            <p className="text-gray-500 text-sm sm:text-base">No past trips yet.</p>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10">
               {past.map((b, index) => (
-                <div key={index} className="bg-white rounded-3xl border shadow-lg p-6">
-                  <img src={b.image} className="w-full h-48 rounded-xl object-cover" />
-                  <h4 className="text-xl font-bold mt-3">{b.title}</h4>
-                  <p className="text-gray-600">{b.date}</p>
-                  <p className="mt-2 text-gray-700">{b.travellers} Travellers</p>
-                  <p className="text-green-600 font-bold mt-2">₹{b.total.toLocaleString()}</p>
+                <div key={index} className="bg-white rounded-2xl sm:rounded-3xl border shadow-lg p-4 sm:p-5 md:p-6">
+                  <img src={b.image} className="w-full h-40 sm:h-48 rounded-xl object-cover" />
+                  <h4 className="text-lg sm:text-xl font-bold mt-2 sm:mt-3">{b.title}</h4>
+                  <p className="text-gray-600 text-sm sm:text-base">{b.date}</p>
+                  <p className="mt-1.5 sm:mt-2 text-gray-700 text-sm sm:text-base">{b.travellers} Travellers</p>
+                  <p className="text-green-600 font-bold mt-1.5 sm:mt-2 text-base sm:text-lg">₹{b.total.toLocaleString()}</p>
                 </div>
               ))}
             </div>
@@ -301,18 +300,18 @@ export default function Profile() {
 
       {/* -------- Wishlist -------- */}
       {tab === "wishlist" && (
-        <motion.div key="wishlist" {...tabAnimation} className="mt-10">
-          <h3 className="text-2xl font-extrabold mb-4">Wishlist</h3>
+        <motion.div key="wishlist" {...tabAnimation} className="mt-6 sm:mt-8 md:mt-10">
+          <h3 className="text-xl sm:text-2xl font-extrabold mb-3 sm:mb-4">Wishlist</h3>
 
           {wishlistState.length === 0 ? (
-            <div className="text-gray-500 bg-white p-10 text-center rounded-3xl border shadow-inner">
+            <div className="text-gray-500 bg-white p-6 sm:p-8 md:p-10 text-center rounded-2xl sm:rounded-3xl border shadow-inner text-sm sm:text-base">
               No wishlist items yet.
               <Link className="text-blue-600 underline ml-1" to="/destinations">
                 Explore →
               </Link>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10">
               {wishlistState.map((item) => (
                 <Link
                   key={item.id}
@@ -322,17 +321,17 @@ export default function Profile() {
                       : `/category/${item.categoryId}/${item.placeId}`
                   }
                 >
-                  <div className="bg-white rounded-3xl border shadow-lg overflow-hidden hover:scale-[1.02] transition">
-                    <img src={item.image} className="w-full h-48 object-cover" />
-                    <div className="p-5">
-                      <h3 className="font-bold text-xl">{item.title}</h3>
-                      <p className="text-gray-600 text-sm">{item.location}</p>
+                  <div className="bg-white rounded-2xl sm:rounded-3xl border shadow-lg overflow-hidden hover:scale-[1.02] transition">
+                    <img src={item.image} className="w-full h-40 sm:h-48 object-cover" />
+                    <div className="p-4 sm:p-5">
+                      <h3 className="font-bold text-lg sm:text-xl">{item.title}</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm">{item.location}</p>
 
-                      <div className="flex justify-between items-center mt-4">
+                      <div className="flex justify-between items-center mt-3 sm:mt-4">
                         {item.price ? (
-                          <p className="text-green-600 font-bold">₹{item.price}</p>
+                          <p className="text-green-600 font-bold text-base sm:text-lg">₹{item.price}</p>
                         ) : (
-                          <p className="text-blue-600 font-semibold">Explore →</p>
+                          <p className="text-blue-600 font-semibold text-sm sm:text-base">Explore →</p>
                         )}
 
                         <button
@@ -340,7 +339,7 @@ export default function Profile() {
                             e.preventDefault();
                             removeWish(item.id);
                           }}
-                          className="text-red-500 font-semibold hover:underline"
+                          className="text-red-500 font-semibold hover:underline text-sm sm:text-base"
                         >
                           Remove
                         </button>
