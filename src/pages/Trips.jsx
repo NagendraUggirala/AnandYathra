@@ -52,7 +52,7 @@ export default function Trips() {
     <div className="max-w-7xl mx-auto px-5 pt-28 pb-20">
       
       <h2 className="text-4xl font-extrabold mb-10 text-center bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent">
-        Our Best Trips
+        Our Best Packages
       </h2>
 
       {/* Persons Filter */}
