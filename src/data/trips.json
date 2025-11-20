@@ -5,6 +5,7 @@
     "destination": "Goa",
     "image": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2015/04/27/1126/Grand-Hyatt-Goa-P348-Aerial-Overview-Outdoor-Pool.jpg/Grand-Hyatt-Goa-P348-Aerial-Overview-Outdoor-Pool.16x9.jpg?imwidth=1920",
     "price": 24999,
+    "originalPrice": 34999,
     "days": 4,
     "nights": 3,
     "highlights": [
@@ -37,6 +38,7 @@
     "destination": "Goa",
     "image": "https://www.mistay.in/travel-blog/content/images/2020/06/cover-goa-mistay-hotel-rooms.jpg",
     "price": 12999,
+    "originalPrice": 16999,
     "days": 3,
     "nights": 2,
     "highlights": [
@@ -60,6 +62,7 @@
     "destination": "Varkala",
     "image": "https://s3.ap-south-1.amazonaws.com/zo-media/blog_photo/071_Varkala_10.jpg",
     "price": 15999,
+    "originalPrice": 21999,
     "days": 3,
     "nights": 2,
     "highlights": [
@@ -83,6 +86,7 @@
     "destination": "Manali",
     "image": "https://discoverkullumanali.in/wp-content/uploads/2020/11/Solang-valley-in-Manali.jpg",
     "price": 18999,
+    "originalPrice": 25999,
     "days": 5,
     "nights": 4,
     "highlights": [
@@ -112,6 +116,7 @@
     "destination": "Haridwar",
     "image": "https://itihaaskikhoj.in/wp-content/uploads/2024/10/Haridwar-For-Couples.jpg",
     "price": 9999,
+    "originalPrice": 14999,
     "days": 3,
     "nights": 2,
     "highlights": [
@@ -135,6 +140,7 @@
     "destination": "Amritsar",
     "image": "https://www.templedairy.in/wp-content/uploads/2016/02/808da9ac76c9273a40d5d56fdd7c49d7-2.jpg",
     "price": 12999,
+    "originalPrice": 17999,
     "days": 3,
     "nights": 2,
     "highlights": [

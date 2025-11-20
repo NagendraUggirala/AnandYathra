@@ -1,33 +1,156 @@
-import React, { useState } from "react";
-import tripsData from "../../data/tripsData.json";
-import TripCard from "./TripCard";
-import TripFilters from "./TripFilters";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import trips from "../../data/trips.json";
+import categories from "../../data/tripCategories.json";
+import { Heart } from "lucide-react";
+
+import {
+  getWishlist,
+  addToWishlist,
+  removeFromWishlist,
+} from "../../utils/wishlist";
 
 export default function TripList() {
-  const [selected, setSelected] = useState("all");
-  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const [wishlistIds, setWishlistIds] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("all");
 
-  const filtered = tripsData.filter((t) => {
-    const catMatch = selected === "all" || t.category === selected;
-    const searchLower = search.trim().toLowerCase();
-    const searchMatch =
-      !searchLower ||
-      t.title.toLowerCase().includes(searchLower) ||
-      t.location.toLowerCase().includes(searchLower) ||
-      (t.category && t.category.toLowerCase().includes(searchLower));
-    return catMatch && searchMatch;
-  });
+  useEffect(() => {
+    setWishlistIds(getWishlist().map((i) => String(i.id)));
+
+    const updateHandler = () => {
+      setWishlistIds(getWishlist().map((i) => String(i.id)));
+    };
+
+    window.addEventListener("wishlistUpdated", updateHandler);
+    return () => window.removeEventListener("wishlistUpdated", updateHandler);
+  }, []);
+
+  const toggleWishlist = (trip) => {
+    const id = String(trip.id);
+    if (wishlistIds.includes(id)) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist({
+        id,
+        image: trip.image,
+        title: trip.title,
+        location: trip.destination,
+        price: trip.price,
+      });
+    }
+  };
+
+  const filteredTrips =
+    activeCategory === "all"
+      ? Object.values(trips)
+      : Object.values(trips).filter(
+          (t) => categories[t.id] === activeCategory
+        );
+
+  const handleView = (trip) => {
+    navigate(`/trip/${trip.id}?persons=1`);
+  };
+
+  const filterButtons = [
+    { id: "all", label: "All" },
+    { id: "beach", label: "Beaches" },
+    { id: "hill", label: "Hill Stations" },
+    { id: "spiritual", label: "Spiritual" },
+    { id: "adventure", label: "Adventure" },
+  ];
 
   return (
-    <div className="py-10">
-      <TripFilters selected={selected} onChange={setSelected} search={search} setSearch={setSearch} />
+    <div className="mt-12">
+      {/* 🌈 GRADIENT TITLE */}
+      <h2 className="text-4xl font-extrabold mb-6 bg-gradient-to-r 
+from-blue-600 via-green-500 to-yellow-500 
+text-transparent bg-clip-text">
+  Popular Trips ✈️
+</h2>
 
-      <div className="max-w-7xl mx-auto px-4 mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.length ? (
-          filtered.map((trip) => <TripCard key={trip.id} trip={trip} />)
-        ) : (
-          <div className="col-span-full text-center text-gray-600 py-10">No trips match your search.</div>
-        )}
+
+      {/* ⭐ FILTER BUTTONS WITH GRADIENT STYLE */}
+      <div className="flex gap-4 overflow-x-auto pb-4">
+        {filterButtons.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setActiveCategory(cat.id)}
+            className={`px-5 py-2 rounded-full font-semibold text-sm transition shadow 
+              ${
+                activeCategory === cat.id
+                  ? "bg-gradient-to-r from-blue-600 to-yellow-400 text-white"
+                  : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-100"
+              }
+            `}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      {/* NO DATA */}
+      {filteredTrips.length === 0 && (
+        <p className="text-center text-gray-500 mt-8 text-lg">
+          No trips found 😳
+        </p>
+      )}
+
+      {/* TRIP CARDS */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+        {filteredTrips.map((trip) => {
+          const isWish = wishlistIds.includes(String(trip.id));
+
+          return (
+            <div
+              key={trip.id}
+              className="relative bg-white rounded-2xl shadow-lg border hover:shadow-2xl transition flex flex-col"
+            >
+              {/* ❤️ Wishlist Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWishlist(trip);
+                }}
+                className="absolute top-3 right-3 bg-white p-2 rounded-full shadow"
+              >
+                <Heart
+                  className={`w-6 h-6 ${
+                    isWish ? "text-red-500 fill-red-500" : "text-gray-600"
+                  }`}
+                />
+              </button>
+
+              <img
+                src={trip.image}
+                alt={trip.title}
+                className="h-52 w-full object-cover cursor-pointer"
+                onClick={() => handleView(trip)}
+              />
+
+              <div className="p-5">
+                <h3 className="text-lg font-bold">{trip.title}</h3>
+                <p className="text-gray-500 text-sm">{trip.destination}</p>
+
+                <p className="text-green-700 text-xl font-bold mt-2">
+                  ₹{trip.price.toLocaleString()}
+                </p>
+
+                <p className="text-sm text-gray-600">
+                  {trip.days} Days • {trip.nights} Nights
+                </p>
+
+                {/* 🌈 Gradient Button */}
+                <button
+                  onClick={() => handleView(trip)}
+                  className="mt-4 w-full py-2 bg-gradient-to-r from-blue-600 to-yellow-400 text-white rounded-xl font-semibold shadow-md hover:opacity-90"
+                >
+                  View Details
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

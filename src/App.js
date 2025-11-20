@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import Layout from "./components/Layout";
@@ -11,7 +11,10 @@ import TripDetails from "./pages/TripDetails";
 import BookingForm from "./pages/BookingForm";
 import PaymentPage from "./pages/PaymentPage";
 import SuccessPage from "./pages/SuccessPage";
-import Favorites from "./pages/Favorites";   // ⭐ NEW PAGE
+import Profile from "./pages/Profile";
+import MyBookings from "./pages/MyBookings";
+import About from "./pages/About";      // ✅ Added
+import Contact from "./pages/Contact";  // ✅ Added
 
 // Auth
 import SignIn from "./components/SignIn";
@@ -24,36 +27,20 @@ import PlaceDetails from "./components/PlaceDetails";
 
 function App() {
   return (
-    <BrowserRouter>
-
-      {/* ⭐ Toast Notification Provider */}
+    <>
       <Toaster position="top-center" reverseOrder={false} />
 
       <Routes>
-
-        {/* Wrap all pages inside Layout */}
         <Route element={<Layout />}>
-
-          {/* Home Page */}
           <Route path="/" element={<Home />} />
-
-          {/* Trips List */}
           <Route path="/trips" element={<Trips />} />
-
-          {/* Trip Details */}
           <Route path="/trip/:id" element={<TripDetails />} />
-
-          {/* Booking Form */}
           <Route path="/booking/:id" element={<BookingForm />} />
-
-          {/* Payment */}
           <Route path="/payment" element={<PaymentPage />} />
-
-          {/* Success After Payment */}
           <Route path="/success" element={<SuccessPage />} />
 
-          {/* ⭐ Favorites Page */}
-          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/my-bookings" element={<MyBookings />} />
 
           {/* Destinations */}
           <Route path="/destinations" element={<Destinations />} />
@@ -63,13 +50,16 @@ function App() {
             element={<PlaceDetails />}
           />
 
-          {/* Authentication */}
+          {/* Auth */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
 
+          {/* NEW PAGES */}
+          <Route path="/about" element={<About />} />       {/* ✅ Added */}
+          <Route path="/contact" element={<Contact />} />   {/* ✅ Added */}
         </Route>
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 

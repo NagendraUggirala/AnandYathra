@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import trips from "../data/trips.json";
 import { Users, Plane, Train, Bus, Hotel } from "lucide-react";
 
 export default function TripDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { search } = useLocation();
+
+  const personsFromURL = Number(new URLSearchParams(search).get("persons")) || 1;
 
   const trip = trips[id];
 
-  const [persons, setPersons] = useState(1);
+  const [persons, setPersons] = useState(personsFromURL);
   const [travelType, setTravelType] = useState("no-flight");
   const [roomType, setRoomType] = useState("standard");
 
@@ -21,7 +24,7 @@ export default function TripDetails() {
     );
   }
 
-  // ⭐ PRICE CALCULATION (Person-wise)
+  // Calculate total
   const calculateTotal = () => {
     let travelExtra = 0;
     let roomExtra = 0;
@@ -36,44 +39,37 @@ export default function TripDetails() {
     return (trip.price + travelExtra + roomExtra) * persons;
   };
 
+  const total = calculateTotal();
+
   return (
     <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
 
-      {/* ========== TOP SECTION ========== */}
+      {/* IMAGE + DETAILS */}
       <div className="grid md:grid-cols-2 gap-10">
+        <img
+          src={trip.image}
+          alt={trip.title}
+          className="w-full h-[450px] object-cover rounded-3xl shadow-lg"
+        />
 
-        {/* IMAGE */}
         <div>
-          <img
-            src={trip.image}
-            alt={trip.title}
-            className="w-full h-80 md:h-[450px] object-cover rounded-3xl shadow-lg"
-          />
-        </div>
-
-        {/* DETAILS */}
-        <div>
-          <h1 className="text-4xl font-extrabold text-gray-800 leading-snug">
-            {trip.title}
-          </h1>
-
+          <h1 className="text-4xl font-extrabold">{trip.title}</h1>
           <p className="mt-2 text-gray-500 text-lg">{trip.destination}</p>
 
-          <p className="mt-5 text-gray-700 leading-relaxed">{trip.description}</p>
-
+          {/* Persons-wise Price */}
           <div className="mt-4 text-3xl font-bold text-green-600">
-            ₹{trip.price.toLocaleString()}
+            ₹{(trip.price * persons).toLocaleString()}
           </div>
+
+          {persons > 1 && (
+            <p className="text-sm text-gray-500">(for {persons} persons)</p>
+          )}
         </div>
       </div>
 
-      {/* ========== CUSTOMIZATION CARD ========== */}
+      {/* CUSTOMIZATION */}
       <div className="mt-14 bg-white p-8 rounded-3xl shadow-xl border">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          Customize Your Trip
-        </h2>
 
-        {/* ========== FORM GRID ========== */}
         <div className="grid md:grid-cols-3 gap-6">
 
           {/* Persons */}
@@ -96,13 +92,8 @@ export default function TripDetails() {
           {/* Travel Type */}
           <div>
             <label className="font-semibold flex items-center gap-2">
-              {travelType === "flight" && <Plane size={18} className="text-blue-600" />}
-              {travelType === "train" && <Train size={18} className="text-blue-600" />}
-              {travelType === "bus" && <Bus size={18} className="text-blue-600" />}
-              {travelType === "no-flight" && <Plane size={18} className="opacity-40" />}
               Travel Type
             </label>
-
             <select
               className="mt-2 w-full p-3 border rounded-xl"
               value={travelType}
@@ -118,10 +109,8 @@ export default function TripDetails() {
           {/* Room Type */}
           <div>
             <label className="font-semibold flex items-center gap-2">
-              <Hotel size={18} className="text-blue-600" />
               Hotel Room Type
             </label>
-
             <select
               className="mt-2 w-full p-3 border rounded-xl"
               value={roomType}
@@ -134,54 +123,26 @@ export default function TripDetails() {
           </div>
         </div>
 
-        {/* ========== PRICE SUMMARY ========== */}
+        {/* TOTAL */}
         <div className="mt-10 bg-gray-50 p-6 rounded-2xl border">
-          <h3 className="text-xl font-bold mb-4">Price Breakdown</h3>
-
-          <p className="text-lg">
-            <span className="font-semibold">Base Price × Persons:</span>{" "}
-            ₹{(trip.price * persons).toLocaleString()}
-          </p>
-
-          {/* ⭐ PERSON-WISE TRAVEL COST */}
-          <p className="text-lg mt-2">
-            <span className="font-semibold">Traveling Charges:</span>{" "}
-            {travelType === "flight" && `₹5000 × ${persons} = ₹${5000 * persons}`}
-            {travelType === "train" && `₹1500 × ${persons} = ₹${1500 * persons}`}
-            {travelType === "bus" && `₹800 × ${persons} = ₹${800 * persons}`}
-            {travelType === "no-flight" && "₹0"}
-          </p>
-
-          {/* ⭐ PERSON-WISE ROOM COST */}
-          <p className="text-lg mt-2">
-            <span className="font-semibold">Hotel Room Charges:</span>{" "}
-            {roomType === "standard" && "₹0"}
-            {roomType === "deluxe" && `₹1000 × ${persons} = ₹${1000 * persons}`}
-            {roomType === "premium" && `₹2500 × ${persons} = ₹${2500 * persons}`}
-          </p>
-
-          <hr className="my-4" />
+          <h3 className="text-xl font-bold mb-4">Total Amount</h3>
 
           <p className="text-3xl font-bold text-green-700">
-            Total: ₹{calculateTotal().toLocaleString()}
+            ₹{total.toLocaleString()}
           </p>
         </div>
 
-        {/* Book Button */}
         <button
           onClick={() =>
-            navigate(
-              `/booking/${id}?persons=${persons}&travel=${travelType}&room=${roomType}&total=${calculateTotal()}`
-            )
+            navigate(`/booking/${id}`, {
+              state: { trip, persons, travelType, roomType, total }
+            })
           }
-          className="
-            mt-8 w-full py-4 text-lg font-semibold 
-            bg-blue-600 text-white rounded-2xl 
-            shadow-lg hover:bg-blue-700 transition
-          "
+          className="mt-8 w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold"
         >
           Book Now
         </button>
+
       </div>
     </div>
   );

@@ -1,108 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import placesData from "../data/places.json";
-import { ArrowLeft, Heart } from "lucide-react";
-import { addToWishlist, getWishlist } from "../utils/wishlist";
+import trips from "../data/trips.json";
 
 export default function CategoryPlaces() {
   const { categoryId } = useParams();
-  const places = placesData[categoryId] || [];
 
-  // Local state to re-render hearts without page reload
-  const [wishlistState, setWishlistState] = useState([]);
+  // CATEGORY FILTER LOGIC
+  const categoryMapping = {
+    beaches: ["Goa", "Varkala"],
+    mountains: ["Manali"],
+    spiritual: ["Haridwar", "Amritsar"],
+    luxury: ["Goa"], // Goa Premium
+  };
 
-  useEffect(() => {
-    setWishlistState(getWishlist());
-  }, []);
+  const allowedDestinations = categoryMapping[categoryId] || [];
 
-  function isInWishlist(id) {
-    return wishlistState.some((item) => String(item.id) === String(id));
-  }
-
-  function handleWishlist(place, e) {
-    e.preventDefault();
-
-    addToWishlist({
-      id: String(place.id),
-      image: place.img,
-      title: place.title || place.name,
-      location: place.desc || "Unknown",
-      price: place.price || null,
-      categoryId: categoryId,
-      placeId: place.id,
-    });
-
-    // Update local state so heart turns red instantly
-    setWishlistState(getWishlist());
-  }
+  // FILTER TRIPS FROM trips.json
+  const filteredTrips = Object.values(trips).filter((trip) =>
+    allowedDestinations.includes(trip.destination)
+  );
 
   return (
-    <div className="max-w-7xl mx-auto px-5 pt-28 pb-16">
-
-      {/* Back Button */}
-      <Link
-        to="/destinations"
-        className="flex items-center gap-2 px-4 py-2 w-fit bg-gray-100 
-                 hover:bg-gray-200 rounded-xl text-gray-700 font-medium transition mb-6"
-      >
-        <ArrowLeft size={18} /> Back
-      </Link>
-
-      {/* Title */}
-      <h2 className="text-3xl font-extrabold mb-8 capitalize bg-gradient-to-r 
-                     from-blue-600 to-yellow-500 bg-clip-text text-transparent">
-        {categoryId.replace("-", " ")}
+    <div className="max-w-7xl mx-auto px-5 pt-28 pb-20">
+      <h2 className="text-3xl font-extrabold mb-6 capitalize">
+        {categoryId.replace("-", " ")} Trips
       </h2>
 
-      {/* Places */}
-      {places.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {places.map((place) => (
-            <Link
-              key={place.id}
-              to={`/category/${categoryId}/${place.id}`}
-              className="relative block"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden border cursor-pointer relative"
-              >
-                {/* Image */}
+      {filteredTrips.length === 0 ? (
+        <p className="text-gray-500">No trips found for this category.</p>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredTrips.map((trip) => (
+            <Link key={trip.id} to={`/trip/${trip.id}`}>
+              <div className="bg-white rounded-2xl shadow hover:shadow-2xl transition overflow-hidden">
+
                 <img
-                  src={place.img}
-                  alt={place.name}
-                  className="w-full h-52 object-cover"
+                  src={trip.image}
+                  alt={trip.title}
+                  className="w-full h-48 object-cover"
                 />
 
-                {/* Wishlist Button */}
-                <button
-                  onClick={(e) => handleWishlist(place, e)}
-                  className="absolute top-3 right-3 bg-white p-2 rounded-full shadow z-20 hover:scale-110 transition"
-                >
-                  {isInWishlist(place.id) ? (
-                    <Heart className="text-red-500" fill="red" />
-                  ) : (
-                    <Heart className="text-red-500" />
-                  )}
-                </button>
+                <div className="p-5">
+                  <h3 className="text-xl font-bold text-gray-800">{trip.title}</h3>
+                  <p className="text-gray-500">{trip.destination}</p>
 
-                {/* Details */}
-                <div className="p-4">
-                  <h3 className="text-xl font-bold">{place.title || place.name}</h3>
-                  <p className="text-gray-600 text-sm mt-2">{place.desc}</p>
+                  <p className="mt-3 text-2xl font-bold text-green-700">
+                    ₹{trip.price.toLocaleString()}
+                  </p>
+
+                  <p className="text-sm text-gray-600 mt-1">
+                    {trip.days} Days • {trip.nights} Nights
+                  </p>
+
+                  <button className="mt-4 w-full py-2 rounded-xl bg-gradient-to-r 
+                                     from-blue-600 to-yellow-500 text-white 
+                                     font-semibold shadow">
+                    View Details
+                  </button>
                 </div>
-              </motion.div>
+
+              </div>
             </Link>
           ))}
         </div>
-      ) : (
-        <h3 className="text-red-600 text-xl font-bold text-center mt-20">
-          Destination Not Found ❌
-        </h3>
       )}
     </div>
   );
