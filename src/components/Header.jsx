@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { useAuth } from "../auth/AuthContext";
+import toast from "react-hot-toast";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();   // ✅ FIXED
 
   return (
     <header className="fixed w-full top-0 z-50 bg-white shadow-md border-b border-gray-200">
@@ -13,21 +15,18 @@ export default function Header() {
         
         {/* ⭐ BRAND */}
         <div className="flex items-center gap-3">
-          {/* Founder Image */}
           <img
             src="/assets/founder.jpg"
             alt="Founder"
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover object-top shadow-md"
           />
 
-          {/* Logo */}
           <img
             src="/assets/Anandlogo.png"
             alt="Logo"
             className="w-10 h-10 object-contain sm:w-12 sm:h-12"
           />
 
-          {/* Title — FIXED (mobile visible now) */}
           <div className="flex flex-col leading-tight">
             <h1 className="text-lg sm:text-xl font-bold text-orange-600">
               ANAND YATRA
@@ -81,8 +80,12 @@ export default function Header() {
 
               {/* Logout */}
               <button
-                onClick={signOut}
-                className="text-red-600 font-semibold hover:text-red-700 transition"
+                onClick={() => {
+                  toast.success("Logged out successfully ✨");
+                  signOut();
+                  setTimeout(() => navigate("/"), 600);
+                }}
+                className="px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 shadow"
               >
                 Logout
               </button>
@@ -103,7 +106,7 @@ export default function Header() {
       {open && (
         <div className="md:hidden bg-white shadow-md px-6 py-4 space-y-4">
 
-          {/* 📌 NEW — Mobile Profile Section */}
+          {/* 📌 Mobile Profile */}
           {user && (
             <Link
               to="/profile"
@@ -121,21 +124,11 @@ export default function Header() {
           )}
 
           {/* Nav Links */}
-          <Link onClick={() => setOpen(false)} to="/" className="block text-lg">
-            Home
-          </Link>
-          <Link onClick={() => setOpen(false)} to="/destinations" className="block text-lg">
-            Destinations
-          </Link>
-          <Link onClick={() => setOpen(false)} to="/trips" className="block text-lg">
-            Trips
-          </Link>
-          <Link onClick={() => setOpen(false)} to="/about" className="block text-lg">
-            About
-          </Link>
-          <Link onClick={() => setOpen(false)} to="/contact" className="block text-lg">
-            Contact
-          </Link>
+          <Link onClick={() => setOpen(false)} to="/" className="block text-lg">Home</Link>
+          <Link onClick={() => setOpen(false)} to="/destinations" className="block text-lg">Destinations</Link>
+          <Link onClick={() => setOpen(false)} to="/trips" className="block text-lg">Trips</Link>
+          <Link onClick={() => setOpen(false)} to="/about" className="block text-lg">About</Link>
+          <Link onClick={() => setOpen(false)} to="/contact" className="block text-lg">Contact</Link>
 
           {/* Auth Buttons */}
           {!user ? (
@@ -159,8 +152,10 @@ export default function Header() {
           ) : (
             <button
               onClick={() => {
+                toast.success("Logged out successfully ✨");
                 signOut();
                 setOpen(false);
+                navigate("/");
               }}
               className="text-red-600 font-semibold text-lg"
             >

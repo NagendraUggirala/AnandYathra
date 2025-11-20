@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 import {
   Trash2,
@@ -66,12 +67,42 @@ export default function Profile() {
     const updated = [...allBookings];
     updated.splice(index, 1);
     localStorage.setItem("bookings", JSON.stringify(updated));
-    window.location.reload();
+
+    // Travel themed toast
+    toast.custom((t) => (
+      <div className="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-yellow-50 border p-3 rounded-xl shadow-md">
+        <span className="text-xl">🗑️</span>
+        <div>
+          <div className="font-semibold">Booking cancelled</div>
+          <div className="text-sm text-gray-600">We've removed the booking from your upcoming trips.</div>
+        </div>
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className="ml-auto text-sm text-blue-600 underline"
+        >
+          OK
+        </button>
+      </div>
+    ));
+
+    // small delay so toast is visible
+    setTimeout(() => window.location.reload(), 700);
   }
 
   function removeWish(id) {
     removeFromWishlist(id);
     setWishlistState(getWishlist());
+
+    toast(
+      <div className="flex items-center gap-3">
+        <span className="text-xl">🏝️</span>
+        <div>
+          <div className="font-semibold">Removed from wishlist</div>
+          <div className="text-sm text-gray-600">We removed the item from your wishlist.</div>
+        </div>
+      </div>,
+      { duration: 2200 }
+    );
   }
 
   // ================= TAB ANIMATION =================
@@ -146,7 +177,21 @@ export default function Profile() {
                   Home
                 </button>
                 <button
-                  onClick={signOut}
+                  onClick={() => {
+                    // travel themed logout toast
+                    toast.custom((t) => (
+                      <div className="flex items-center gap-3 bg-gradient-to-r from-yellow-50 to-blue-50 border p-3 rounded-xl shadow-md">
+                        <span className="text-xl">👋</span>
+                        <div>
+                          <div className="font-semibold">Logged out successfully</div>
+                          <div className="text-sm text-gray-600">See you soon — happy travels!</div>
+                        </div>
+                      </div>
+                    ));
+
+                    signOut();
+                    setTimeout(() => navigate("/"), 600);
+                  }}
                   className="px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 shadow"
                 >
                   Logout
