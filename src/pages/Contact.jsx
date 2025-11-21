@@ -107,7 +107,7 @@ export default function ContactPremium() {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-3 py-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white font-semibold shadow-lg transform transition hover:scale-105 hover:shadow-[0_10px_40px_rgba(99,102,241,0.16)]"
+                className="w-full inline-flex items-center justify-center gap-3 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-yellow-400 text-white font-semibold shadow-lg transform transition hover:scale-105 hover:shadow-[0_10px_40px_rgba(99,102,241,0.16)]"
               >
                 <Send className="w-4 h-4" />
                 <span>Submit</span>

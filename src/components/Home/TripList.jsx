@@ -88,15 +88,14 @@ export default function TripList() {
     <div className="mt-12">
       {/* 🌈 GRADIENT TITLE */}
       <h2
-        className="text-4xl font-extrabold mb-6 bg-gradient-to-r 
-      from-blue-600 via-green-500 to-yellow-500 
-      text-transparent bg-clip-text"
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent text-center drop-shadow w-full"
       >
         Popular Trips ✈️
       </h2>
-
+      <br />
+      <br />
       {/* ⭐ FILTER BUTTONS */}
-      <div className="flex gap-4 overflow-x-auto pb-4">
+      <div className="flex gap-4 center overflow-x-auto pb-4">
         {filterButtons.map((cat) => (
           <button
             key={cat.id}

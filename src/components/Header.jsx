@@ -13,8 +13,8 @@ export default function Header() {
     <header className="fixed w-full top-0 z-50 bg-white shadow-md border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
         
-        {/* ⭐ BRAND */}
-        <div className="flex items-center gap-3">
+        {/* ⭐ BRAND (NOW CLICKABLE → HOME) */}
+        <Link to="/" className="flex items-center gap-3 cursor-pointer">
           <img
             src="/assets/founder.jpg"
             alt="Founder"
@@ -35,7 +35,7 @@ export default function Header() {
               "Dharmo Rakshati Rakshitah"
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* ⭐ Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-[16px] font-medium text-[#1b2b47]">
@@ -66,7 +66,6 @@ export default function Header() {
             </>
           ) : (
             <>
-              {/* Avatar + Name */}
               <Link to="/profile" className="flex items-center gap-2">
                 <img
                   src={user.avatar}

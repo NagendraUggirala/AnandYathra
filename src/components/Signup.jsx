@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../auth/AuthContext";
 
 export default function SignUp() {
   const { signUp } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // ⭐ Read redirect URL from param
+  const params = new URLSearchParams(location.search);
+  const redirectTo = params.get("redirect") || "/";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,7 +24,7 @@ export default function SignUp() {
     setTimeout(() => setToast(null), 2500);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (name.length < 2) {
@@ -30,15 +37,18 @@ export default function SignUp() {
       return;
     }
 
-    signUp(name, email, password);
+    await signUp(name, email, password);
     showToast("success", "Account Created Successfully 🎉");
+
+    // ⭐ Redirect Back After Signup
+    setTimeout(() => navigate(redirectTo), 800);
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center pt-28 px-6 
         bg-gradient-to-br from-blue-50 via-white to-yellow-50">
 
-      {/* 🔔 Animated Toast Popup */}
+      {/* 🔔 Toast Popup */}
       <AnimatePresence>
         {toast && (
           <motion.div
@@ -54,7 +64,7 @@ export default function SignUp() {
         )}
       </AnimatePresence>
 
-      {/* 🔥 Sign Up Card */}
+      {/*Signup Card */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -70,7 +80,7 @@ export default function SignUp() {
           Start your travel journey with us ✈️✨
         </p>
 
-        {/* Form */}
+        {/* FORM */}
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
 
           {/* Full Name */}
@@ -126,7 +136,10 @@ export default function SignUp() {
 
         <p className="text-center mt-6 text-gray-700">
           Already have an account?{" "}
-          <Link className="text-blue-600 font-semibold hover:underline" to="/signin">
+          <Link
+            className="text-blue-600 font-semibold hover:underline"
+            to={`/signin?redirect=${redirectTo}`}
+          >
             Sign In
           </Link>
         </p>

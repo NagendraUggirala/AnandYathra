@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../auth/AuthContext";
 
 export default function SignIn() {
   const { signIn } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // ⭐ Read redirect URL from query
+  const params = new URLSearchParams(location.search);
+  const redirectTo = params.get("redirect") || "/";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,21 +22,25 @@ export default function SignIn() {
     setTimeout(() => setToast(null), 2500);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    const ok = signIn(email, password);
+    const ok = await signIn(email, password);
+
     if (!ok) {
       showToast("error", "Invalid email or password ❌");
     } else {
       showToast("success", "Login Successful 🎉");
+
+      // ⭐ Redirect Back After Successful Login
+      setTimeout(() => navigate(redirectTo), 800);
     }
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center pt-28 bg-gradient-to-br from-blue-50 via-white to-yellow-50 px-6">
 
-      {/* 🚀 BEAUTIFUL POPUP TOAST MESSAGE */}
+      {/* 🚀 Beautiful Popup Toast */}
       <AnimatePresence>
         {toast && (
           <motion.div
@@ -37,7 +48,7 @@ export default function SignIn() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -40, opacity: 0 }}
             className={`fixed top-6 mx-auto left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl shadow-xl text-white font-semibold 
-              ${toast.type === "success" ? "bg-green-600" : "bg-red-500"} 
+              ${toast.type === "success" ? "bg-green-600" : "bg-red-500"}
             `}
           >
             {toast.message}
@@ -45,6 +56,7 @@ export default function SignIn() {
         )}
       </AnimatePresence>
 
+      {/* LOGIN CARD */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -54,11 +66,14 @@ export default function SignIn() {
                        from-blue-600 to-orange-500 bg-clip-text text-transparent drop-shadow">
           Welcome Back
         </h2>
-        <p className="text-center text-gray-600 mt-2">Sign in to continue your journey ✨</p>
+
+        <p className="text-center text-gray-600 mt-2">
+          Sign in to continue your journey ✨
+        </p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
 
-          {/* Email Input */}
+          {/* Email */}
           <div className="flex flex-col">
             <label className="text-gray-700 font-medium mb-1">Email</label>
             <input
@@ -71,7 +86,7 @@ export default function SignIn() {
             />
           </div>
 
-          {/* Password Input */}
+          {/* Password */}
           <div className="flex flex-col">
             <label className="text-gray-700 font-medium mb-1">Password</label>
             <input
@@ -84,6 +99,7 @@ export default function SignIn() {
             />
           </div>
 
+          {/* Button */}
           <button
             className="w-full bg-gradient-to-r from-blue-600 to-orange-500 
                        text-white py-3 rounded-xl font-semibold shadow-md hover:opacity-90 transition">

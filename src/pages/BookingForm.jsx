@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import trips from "../data/trips.json";
 import { useAuth } from "../auth/AuthContext";
@@ -9,7 +9,14 @@ export default function BookingForm() {
   const { state } = useLocation();
   const { user } = useAuth();
 
-  // FIXED TRIP LOADER
+  // 🚀 Redirect if not logged in (with redirect-back support)
+  useEffect(() => {
+    if (!user) {
+      navigate(`/signin?redirect=/booking/${id}`);
+    }
+  }, [user, navigate, id]);
+
+  // LOAD TRIP
   const trip =
     state?.trip ||
     trips[String(id)] ||
@@ -22,6 +29,9 @@ export default function BookingForm() {
     email: user?.email || "",
     date: "",
   });
+
+  // Avoid flicker while redirecting
+  if (!user) return null;
 
   if (!trip) {
     return (
@@ -38,7 +48,6 @@ export default function BookingForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ⭐ FIX: convert to ISO "YYYY-MM-DD"
     const formattedDate = new Date(form.date)
       .toISOString()
       .split("T")[0];
@@ -46,7 +55,7 @@ export default function BookingForm() {
     navigate("/payment", {
       state: {
         trip,
-        form: { ...form, date: formattedDate }, 
+        form: { ...form, date: formattedDate },
         total,
         persons,
         travelType,
@@ -69,7 +78,6 @@ export default function BookingForm() {
             className="w-full p-3 border rounded-xl"
           />
 
-          {/* Auto-filled Email */}
           <input
             name="email"
             type="email"
