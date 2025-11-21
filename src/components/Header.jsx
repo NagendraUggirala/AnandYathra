@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 export default function Header() {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
-  const navigate = useNavigate();   // ✅ FIXED
+  const navigate = useNavigate();   
 
   return (
     <header className="fixed w-full top-0 z-50 bg-white shadow-md border-b border-gray-200">

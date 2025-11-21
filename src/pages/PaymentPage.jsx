@@ -37,8 +37,8 @@ export default function PaymentPage() {
   // ⭐ FIXED PAYMENT SAVE LOGIC (do not modify anything else)
   function handlePay() {
     const booking = {
-      bookingId: Date.now(),        // ⭐ Unique booking ID
-      email: form.email,            // ⭐ Correct email
+      bookingId: Date.now(),        
+      email: form.email,            
       title: trip.title,
       image: trip.image,
       date: form.date,
@@ -46,7 +46,7 @@ export default function PaymentPage() {
       travelType,
       roomType,
       total,
-      status: "active",             // ⭐ REQUIRED for cancel/past/upcoming
+      status: "active",             
     };
 
     const existing = JSON.parse(localStorage.getItem("bookings")) || [];

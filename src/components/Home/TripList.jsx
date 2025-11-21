@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import trips from "../../data/trips.json";
 import categories from "../../data/tripCategories.json";
 import { Heart } from "lucide-react";
+import toast from "react-hot-toast";
 
 import {
   getWishlist,
@@ -26,10 +27,22 @@ export default function TripList() {
     return () => window.removeEventListener("wishlistUpdated", updateHandler);
   }, []);
 
+  // ⭐ Updated toggleWishlist with popup
   const toggleWishlist = (trip) => {
     const id = String(trip.id);
+
     if (wishlistIds.includes(id)) {
       removeFromWishlist(id);
+      setWishlistIds(getWishlist().map((i) => String(i.id)));
+
+      // ❌ Removed toast
+      toast.custom(
+        <div className="flex items-center gap-3 bg-white border rounded-xl shadow px-4 py-2">
+          <span className="text-xl">💔</span>
+          <p className="font-semibold text-gray-700">Removed from Wishlist</p>
+        </div>,
+        { duration: 1600 }
+      );
     } else {
       addToWishlist({
         id,
@@ -38,6 +51,17 @@ export default function TripList() {
         location: trip.destination,
         price: trip.price,
       });
+
+      setWishlistIds(getWishlist().map((i) => String(i.id)));
+
+      // ❤️ Added toast
+      toast.custom(
+        <div className="flex items-center gap-3 bg-white border rounded-xl shadow px-4 py-2">
+          <span className="text-xl">💚</span>
+          <p className="font-semibold text-gray-700">Saved to Wishlist</p>
+        </div>,
+        { duration: 1600 }
+      );
     }
   };
 
@@ -63,14 +87,15 @@ export default function TripList() {
   return (
     <div className="mt-12">
       {/* 🌈 GRADIENT TITLE */}
-      <h2 className="text-4xl font-extrabold mb-6 bg-gradient-to-r 
-from-blue-600 via-green-500 to-yellow-500 
-text-transparent bg-clip-text">
-  Popular Trips ✈️
-</h2>
+      <h2
+        className="text-4xl font-extrabold mb-6 bg-gradient-to-r 
+      from-blue-600 via-green-500 to-yellow-500 
+      text-transparent bg-clip-text"
+      >
+        Popular Trips ✈️
+      </h2>
 
-
-      {/* ⭐ FILTER BUTTONS WITH GRADIENT STYLE */}
+      {/* ⭐ FILTER BUTTONS */}
       <div className="flex gap-4 overflow-x-auto pb-4">
         {filterButtons.map((cat) => (
           <button
@@ -140,7 +165,6 @@ text-transparent bg-clip-text">
                   {trip.days} Days • {trip.nights} Nights
                 </p>
 
-                {/* 🌈 Gradient Button */}
                 <button
                   onClick={() => handleView(trip)}
                   className="mt-4 w-full py-2 bg-gradient-to-r from-blue-600 to-yellow-400 text-white rounded-xl font-semibold shadow-md hover:opacity-90"

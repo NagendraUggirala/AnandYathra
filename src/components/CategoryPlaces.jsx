@@ -10,7 +10,7 @@ export default function CategoryPlaces() {
     beaches: ["Goa", "Varkala"],
     mountains: ["Manali"],
     spiritual: ["Haridwar", "Amritsar"],
-    luxury: ["Goa"], // Goa Premium
+    luxury: ["Goa"], 
   };
 
   const allowedDestinations = categoryMapping[categoryId] || [];

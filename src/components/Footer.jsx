@@ -13,7 +13,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3">
               <img
-                src="/assets/Anandlogo.png"   // <-- CHANGE THIS PATH
+                src="/assets/Anandlogo.png"   
                 alt="Anand Yatra Logo"
                 className="w-10 h-10 object-contain"
               />

@@ -46,7 +46,7 @@ export default function BookingForm() {
     navigate("/payment", {
       state: {
         trip,
-        form: { ...form, date: formattedDate }, // ⭐ UPDATED
+        form: { ...form, date: formattedDate }, 
         total,
         persons,
         travelType,

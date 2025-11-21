@@ -13,8 +13,8 @@ import PaymentPage from "./pages/PaymentPage";
 import SuccessPage from "./pages/SuccessPage";
 import Profile from "./pages/Profile";
 import MyBookings from "./pages/MyBookings";
-import About from "./pages/About";      // ✅ Added
-import Contact from "./pages/Contact";  // ✅ Added
+import About from "./pages/About";      
+import Contact from "./pages/Contact";  
  
 // Auth
 import SignIn from "./components/SignIn";
@@ -55,8 +55,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
  
           {/* NEW PAGES */}
-          <Route path="/about" element={<About />} />       {/* ✅ Added */}
-          <Route path="/contact" element={<Contact />} />   {/* ✅ Added */}
+          <Route path="/about" element={<About />} />       
+          <Route path="/contact" element={<Contact />} />   
         </Route>
       </Routes>
     </>

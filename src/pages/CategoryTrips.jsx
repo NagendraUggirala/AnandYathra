@@ -7,7 +7,7 @@ export default function CategoryTrips() {
 
   // Define categories  
   const categories = {
-    beaches: ["Goa", "Varkala"], // add more if needed
+    beaches: ["Goa", "Varkala"],
   };
 
   const destinationList = categories[category] || [];
