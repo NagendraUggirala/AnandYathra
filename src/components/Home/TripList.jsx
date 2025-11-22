@@ -88,7 +88,12 @@ export default function TripList() {
     <div className="mt-12">
       {/* 🌈 GRADIENT TITLE */}
       <h2
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent text-center drop-shadow w-full"
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold
+bg-gradient-to-r from-[#FF7A00] via-[#FF9E2A] via-[#FFC66B] to-[#103DAD]
+bg-clip-text text-transparent drop-shadow-lg brightness-120
+text-center mb-12
+
+"
       >
         Popular Trips ✈️
       </h2>

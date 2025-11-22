@@ -51,7 +51,10 @@ export default function Trips() {
   return (
     <div className="max-w-7xl mx-auto px-5 pt-28 pb-20">
       
-      <h2 className="text-4xl font-extrabold mb-10 text-center bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold
+bg-gradient-to-r from-[#B45309] via-[#F28A1E] via-[#FDBA74] to-[#2348C7]
+bg-clip-text text-transparent drop-shadow-lg brightness-115
+text-center mb-12">
         Our Best Packages
       </h2>
 

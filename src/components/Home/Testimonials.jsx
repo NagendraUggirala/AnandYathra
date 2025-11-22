@@ -47,9 +47,10 @@ export default function Testimonials() {
     <section className="mt-20">
       {/* Heading */}
       <h2
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold 
-        bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent 
-        text-center drop-shadow w-full"
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold
+bg-gradient-to-r from-[#B45309] via-[#F28A1E] via-[#FDBA74] to-[#2348C7]
+bg-clip-text text-transparent drop-shadow-lg brightness-115
+text-center mb-12"
       >
         What Travelers Say
       </h2>
