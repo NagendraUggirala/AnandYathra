@@ -49,13 +49,10 @@ export default function Blog() {
       {/* BLOG CARDS */}
       <section className="max-w-7xl mx-auto mt-16">
 
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold
-bg-gradient-to-r from-[#B45309] via-[#F28A1E] via-[#FDBA74] to-[#2348C7]
-bg-clip-text text-transparent drop-shadow-lg brightness-115
-text-center mb-12
-">
-          Latest Travel Stories
-        </h2>
+       <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-800 text-center mb-12">
+ Latest Travel Stories
+</h2>
+
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
           {blogs.map((blog, i) => (

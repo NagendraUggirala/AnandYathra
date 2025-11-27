@@ -69,8 +69,8 @@ export default function TripList() {
     activeCategory === "all"
       ? Object.values(trips)
       : Object.values(trips).filter(
-          (t) => categories[t.id] === activeCategory
-        );
+        (t) => categories[t.id] === activeCategory
+      );
 
   const handleView = (trip) => {
     navigate(`/trip/${trip.id}?persons=1`);
@@ -86,30 +86,24 @@ export default function TripList() {
 
   return (
     <div className="mt-12">
-      {/* 🌈 GRADIENT TITLE */}
-      <h2
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold
-bg-gradient-to-r from-[#FF7A00] via-[#FF9E2A] via-[#FFC66B] to-[#103DAD]
-bg-clip-text text-transparent drop-shadow-lg brightness-120
-text-center mb-12
-
-"
-      >
+      {/* 🌈 GRADIENT TITLE - Updated with header font styling */}
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-800 text-center mb-12">
         Popular Trips ✈️
       </h2>
+
       <br />
       <br />
-      {/* ⭐ FILTER BUTTONS */}
+      
+      {/* ⭐ FILTER BUTTONS - Updated with header font styling */}
       <div className="flex gap-4 center overflow-x-auto pb-4">
         {filterButtons.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
-            className={`px-5 py-2 rounded-full font-semibold text-sm transition shadow 
-              ${
-                activeCategory === cat.id
-                  ? "bg-gradient-to-r from-blue-600 to-yellow-400 text-white"
-                  : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-100"
+            className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-200 shadow 
+              ${activeCategory === cat.id
+                ? "bg-blue-800 text-white"
+                : "bg-white text-blue-800 hover:bg-blue-50 border border-gray-200"
               }
             `}
           >
@@ -118,14 +112,14 @@ text-center mb-12
         ))}
       </div>
 
-      {/* NO DATA */}
+      {/* NO DATA - Updated font */}
       {filteredTrips.length === 0 && (
-        <p className="text-center text-gray-500 mt-8 text-lg">
+        <p className="text-center text-gray-500 mt-8 text-lg font-semibold">
           No trips found 😳
         </p>
       )}
 
-      {/* TRIP CARDS */}
+      {/* TRIP CARDS - Updated fonts throughout */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
         {filteredTrips.map((trip) => {
           const isWish = wishlistIds.includes(String(trip.id));
@@ -133,7 +127,7 @@ text-center mb-12
           return (
             <div
               key={trip.id}
-              className="relative bg-white rounded-2xl shadow-lg border hover:shadow-2xl transition flex flex-col"
+              className="relative bg-white rounded-2xl shadow-lg border hover:shadow-2xl transition-all duration-300 flex flex-col"
             >
               {/* ❤️ Wishlist Button */}
               <button
@@ -141,37 +135,36 @@ text-center mb-12
                   e.stopPropagation();
                   toggleWishlist(trip);
                 }}
-                className="absolute top-3 right-3 bg-white p-2 rounded-full shadow"
+                className="absolute top-3 right-3 bg-white p-2 rounded-full shadow hover:shadow-md transition-all duration-200"
               >
                 <Heart
-                  className={`w-6 h-6 ${
-                    isWish ? "text-red-500 fill-red-500" : "text-gray-600"
-                  }`}
+                  className={`w-6 h-6 ${isWish ? "text-red-500 fill-red-500" : "text-gray-600"
+                    }`}
                 />
               </button>
 
               <img
                 src={trip.image}
                 alt={trip.title}
-                className="h-52 w-full object-cover cursor-pointer"
+                className="h-52 w-full object-cover cursor-pointer rounded-t-2xl"
                 onClick={() => handleView(trip)}
               />
 
-              <div className="p-5">
-                <h3 className="text-lg font-bold">{trip.title}</h3>
-                <p className="text-gray-500 text-sm">{trip.destination}</p>
+              <div className="p-5 flex flex-col flex-grow">
+                <h3 className="text-lg font-bold text-blue-800">{trip.title}</h3>
+                <p className="text-gray-600 text-sm font-semibold mt-1">{trip.destination}</p>
 
                 <p className="text-green-700 text-xl font-bold mt-2">
                   ₹{trip.price.toLocaleString()}
                 </p>
 
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 font-semibold mt-1">
                   {trip.days} Days • {trip.nights} Nights
                 </p>
 
                 <button
                   onClick={() => handleView(trip)}
-                  className="mt-4 w-full py-2 bg-gradient-to-r from-blue-600 to-yellow-400 text-white rounded-xl font-semibold shadow-md hover:opacity-90"
+                  className="mt-4 w-full py-2.5 bg-blue-800 text-white rounded-xl font-semibold shadow-md hover:bg-blue-700 transition-all duration-200"
                 >
                   View Details
                 </button>

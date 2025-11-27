@@ -57,16 +57,10 @@ export default function FeaturesSection() {
     <div className="w-full py-16 px-6 bg-gradient-to-b from-[#F8FBFF] to-[#F3F7FF]">
 
       {/* HEADING WITH SAME COLORS YOU GAVE */}
-      <h2 className="
-      text-3xl sm:text-4xl md:text-5xl font-extrabold
-bg-gradient-to-r from-[#FF7A00] via-[#FF9E2A] via-[#FFC66B] to-[#103DAD]
-bg-clip-text text-transparent drop-shadow-lg brightness-120
-text-center mb-12
+     <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-800 text-center mb-12">
+Why choose Anand Yatra?
+</h2>
 
-
-      ">
-        Why Choose Us
-      </h2>
 
       {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

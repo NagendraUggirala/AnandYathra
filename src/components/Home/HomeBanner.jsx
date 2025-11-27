@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function HomeBanner() {
   // Background images (You can add more)
@@ -22,7 +23,7 @@ export default function HomeBanner() {
   }, []);
 
   return (
-    <section className="relative h-[350px] sm:h-[450px] md:h-[520px] lg:h-[480px] mt-[70px] rounded-3xl overflow-hidden shadow-xl">
+    <section className="relative h-[280px] xs:h-[320px] sm:h-[400px] md:h-[480px] lg:h-[550px] rounded-2xl md:rounded-3xl overflow-hidden shadow-xl -mt-3 mx-4 sm:mx-6">
 
       {/* ========== BACKGROUND CAROUSEL ========== */}
       <div className="absolute inset-0">
@@ -39,37 +40,40 @@ export default function HomeBanner() {
       </div>
 
       {/* Dark Vignette Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/80"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/50 to-black/70 sm:from-black/20 sm:via-black/60 sm:to-black/80"></div>
 
-      {/* ========== CENTER TEXT CONTENT ========== */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-5">
+      {/* ========== CENTER TEXT CONTENT - MOBILE OPTIMIZED ========== */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 sm:px-5 pt-8 sm:pt-12 md:pt-16 lg:pt-20">
 
         <motion.h1
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent text-center drop-shadow w-full">
+          className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-yellow-400 sm:from-blue-500 sm:to-yellow-500 bg-clip-text text-transparent text-center drop-shadow w-full leading-tight sm:leading-normal"
+        >
           Discover Your Next Journey with Anand Yatra
         </motion.h1>
 
-        <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-yellow-300 to-yellow-500 mx-auto my-4 rounded-full"></div>
+        <div className="w-16 xs:w-20 sm:w-24 md:w-28 h-0.5 sm:h-1 bg-gradient-to-r from-yellow-300 to-yellow-500 mx-auto my-3 sm:my-4 rounded-full"></div>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1 }}
-          className="text-white/80 text-sm sm:text-lg max-w-xl leading-relaxed"
+          transition={{ duration: 1.1, delay: 0.2 }}
+          className="text-white/90 text-xs xs:text-sm sm:text-base md:text-lg max-w-xs xs:max-w-sm sm:max-w-md md:max-w-xl leading-relaxed px-2"
         >
-          Unique experiences, breathtaking destinations, curated itineraries, and Packages specially for you.
+          Unique experiences, breathtaking destinations, curated itineraries, and packages specially for you.
         </motion.p>
-
-        <motion.button
-          whileHover={{ scale: 1.07 }}
-          whileTap={{ scale: 0.95 }}
-          className="mt-6 px-6 py-3 sm:px-10 sm:py-4 bg-yellow-500 text-black font-semibold rounded-full shadow-xl"
-        >
-          Explore Trips
-        </motion.button>
+        
+        <Link to="/trips" className="mt-4 sm:mt-6">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-5 py-2.5 sm:px-7 sm:py-3 md:px-9 md:py-3.5 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold rounded-full shadow-lg text-sm sm:text-base transition-colors duration-200"
+          >
+            Explore Trips
+          </motion.button>
+        </Link>
       </div>
 
     </section>

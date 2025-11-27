@@ -4,13 +4,15 @@ import trips from "../data/trips.json";
 
 export default function CategoryPlaces() {
   const { categoryId } = useParams();
+  console.log(categoryId);
 
   // CATEGORY FILTER LOGIC
   const categoryMapping = {
     beaches: ["Goa", "Varkala"],
     mountains: ["Manali"],
     spiritual: ["Haridwar", "Amritsar"],
-    luxury: ["Goa"], 
+    luxury: ["Goa"],
+    wildlife: ["Ranthambore", "Jim Corbett", "Bandhavgarh"], 
   };
 
   const allowedDestinations = categoryMapping[categoryId] || [];
@@ -52,8 +54,8 @@ export default function CategoryPlaces() {
                     {trip.days} Days • {trip.nights} Nights
                   </p>
 
-                  <button className="mt-4 w-full py-2 rounded-xl bg-gradient-to-r 
-                                     from-blue-600 to-yellow-500 text-white 
+                  <button className="mt-4 w-full py-2 rounded-xl bg-blue-800
+                             text-white 
                                      font-semibold shadow">
                     View Details
                   </button>

@@ -1,99 +1,100 @@
 import React from "react";
 
-export default function Testimonials() {
-  const reviews = [
+export default function FeaturesSection() {
+  const cards = [
     {
-      name: "Aarav Sharma",
-      review: "Amazing experience! The Bali package was well planned.",
-      img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=300&q=60",
-      color: "blue",
+      title: "Seamless Planning",
+      desc: "Effortless travel arrangements from start to end.",
+      icon: "📌",
+      color: "#6366F1",
     },
     {
-      name: "Sneha Reddy",
-      review: "Quick booking, best hotels, and great support. Loved it!",
-      img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=300&q=60",
-      color: "yellow",
+      title: "Comfort Hotels",
+      desc: "Premium stays selected for relaxation and comfort.",
+      icon: "🏨",
+      color: "#EC4899",
     },
     {
-      name: "Vikram Singh",
-      review: "Family trip to Kerala was outstanding. Highly recommend!",
-      img: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=60",
-      color: "green",
+      title: "Guided Tours",
+      desc: "Explore locations with the best certified guides.",
+      icon: "🗺️",
+      color: "#14B8A6",
     },
     {
-      name: "Nisha Verma",
-      review:
-        "The Dubai trip was luxurious and perfectly organized. Truly memorable!",
-      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=60",
-      color: "purple",
+      title: "Easy Booking",
+      desc: "Book trips instantly with secure payment.",
+      icon: "⚡",
+      color: "#F59E0B",
     },
     {
-      name: "Rohit Mehta",
-      review:
-        "Excellent service! The team guided us at every step of our Thailand tour.",
-      img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=300&q=60",
-      color: "orange",
+      title: "24/7 Support",
+      desc: "We’re available anytime for your travel needs.",
+      icon: "🕒",
+      color: "#3B82F6",
     },
     {
-      name: "Harika Nandan",
-      review:
-        "Our Shimla–Manali honeymoon was magical. Thanks for making it special!",
-      img: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=300&q=60",
-      color: "pink",
+      title: "Affordable Packages",
+      desc: "Best travel deals crafted for every budget.",
+      icon: "💸",
+      color: "#10B981",
+    },
+    {
+      title: "Verified Experiences",
+      desc: "Thousands of customers trust our service.",
+      icon: "⭐",
+      color: "#F43F5E",
+    },
+    {
+      title: "Memorable Moments",
+      desc: "Capture beautiful experiences with loved ones.",
+      icon: "📸",
+      color: "#A855F7",
     },
   ];
 
   return (
-    <section className="mt-20">
-      {/* Heading */}
-      <h2
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold
-bg-gradient-to-r from-[#B45309] via-[#F28A1E] via-[#FDBA74] to-[#2348C7]
-bg-clip-text text-transparent drop-shadow-lg brightness-115
-text-center mb-12"
-      >
-        What Travelers Say
-      </h2>
+    
+    <div className="w-full py-16 px-6 bg-gradient-to-b from-[#F8FBFF] to-[#F3F7FF]">
 
-      <p className="mt-2 text-gray-600 text-center">
-        Real stories from real journeys
-      </p>
+      {/* HEADING WITH SAME COLORS YOU GAVE */}
+     <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-800 text-center mb-12">
+Why choose Anand Yatra?
+</h2>
 
-      {/* CARD GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-        {reviews.map((item, i) => (
+
+      {/* GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {cards.map((card, index) => (
           <div
-            key={i}
-            className={`
-              bg-white shadow-lg rounded-3xl p-6 
-              border-t-4 border-${item.color}-500 
-              hover:-translate-y-2 hover:shadow-xl hover:scale-[1.02]
+            key={index}
+            className="
+              p-6 rounded-2xl
+              bg-white/70 backdrop-blur-xl
+              border border-white/40 shadow-md
               transition-all duration-300
-            `}
+              hover:-translate-y-2 hover:shadow-xl hover:bg-white
+            "
           >
-            {/* IMAGE */}
-            <div className="flex justify-center">
-              <img
-                src={item.img}
-                alt={item.name}
-                className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md"
-              />
+            {/* ICON + TITLE */}
+            <div className="flex items-center gap-3 mb-3">
+              <span
+                className="p-3 rounded-full text-white text-2xl shadow"
+                style={{ background: card.color }}
+              >
+                {card.icon}
+              </span>
+
+              <h4 className="text-lg font-semibold text-gray-800">
+                {card.title}
+              </h4>
             </div>
 
-            {/* NAME */}
-            <h4
-              className={`text-lg font-bold text-center mt-3 text-${item.color}-600`}
-            >
-              {item.name}
-            </h4>
-
-            {/* REVIEW */}
-            <p className="mt-2 text-gray-600 text-center leading-relaxed">
-              “{item.review}”
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {card.desc}
             </p>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
