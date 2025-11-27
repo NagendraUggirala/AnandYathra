@@ -21,7 +21,7 @@ const scaleIn = {
 
 export default function AboutFounder() {
   return (
-    <div className="pt-16">
+    <div className="pt-18">
       {/* =======================
            HERO SECTION - Mobile Optimized
       ========================== */}
