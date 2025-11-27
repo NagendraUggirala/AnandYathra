@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -54,7 +55,7 @@ export default function AboutFounder() {
             Discover the soul of India through meaningful journeys crafted with devotion,
             trust, and cultural reverence
           </motion.p>
-
+             <Link to="/contact">
           <motion.button
             className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-xl text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             variants={fadeUp}
@@ -65,7 +66,7 @@ export default function AboutFounder() {
             whileTap={{ scale: 0.97 }}
           >
             Start Your Journey
-          </motion.button>
+          </motion.button></Link>
         </div>
       </motion.section>
 
